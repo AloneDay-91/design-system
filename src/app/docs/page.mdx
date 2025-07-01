@@ -1,0 +1,166 @@
+# Lumen/UI
+
+Bienvenue dans la documentation de Lumen/UI. Cette page utilise Markdown avec des composants React intégrés.
+
+## Vue d'ensemble
+
+Notre design system est construit avec les technologies suivantes :
+
+- **Next.js 15** - Framework React moderne
+- **TypeScript** - Typage statique pour une meilleure DX
+- **Tailwind CSS** - Framework CSS utilitaire
+- **shadcn/ui** - Composants d'interface utilisateur
+- **MDX** - Documentation interactive
+
+## Philosophie
+
+Notre design system suit les principes suivants :
+
+### Accessibilité
+Tous nos composants sont conçus avec l'accessibilité en tête, respectant les standards WCAG 2.1.
+
+### Performance
+Optimisation des performances avec des composants légers et une tree-shaking efficace.
+
+### Personnalisation
+Facilité de personnalisation grâce à Tailwind CSS et des variables CSS cohérentes.
+
+### Cohérence
+Design cohérent à travers tous les composants avec des tokens de design unifiés.
+
+## Installation
+
+<CodeExample language="bash" code="npm install mon-design-system" />
+
+## Utilisation rapide
+
+<CodeExample 
+  language="tsx" 
+  code={`import { Button } from "mon-design-system";
+
+function App() {
+  return (
+    <Button variant="primary">
+      Cliquez-moi
+    </Button>
+  );
+}`} 
+/>
+
+## Composants disponibles
+
+### Composants de base
+- **[Button](/docs/components/button)** - Boutons avec différents variants
+- **[Alert](/docs/components/alert)** - Messages d'alerte et notifications
+- **[Input](/docs/components/input)** - Champs de saisie (en cours)
+- **[Card](/docs/components/card)** - Conteneurs (en cours)
+
+### Composants de navigation
+- **[Navigation](/docs/components/navigation)** - Menus et navigation (en cours)
+
+### Composants de feedback
+- **[Toast](/docs/components/toast)** - Notifications (en cours)
+
+## Configuration
+
+### Thème
+
+Notre design system supporte les thèmes clair et sombre :
+
+<CodeExample 
+  language="tsx" 
+  code={`// Dans votre app
+<ThemeProvider>
+  <App />
+</ThemeProvider>`} 
+/>
+
+### Variables CSS
+
+Vous pouvez personnaliser les couleurs et espacements :
+
+<CodeExample 
+  language="css" 
+  code={`:root {
+  --primary: 220 14% 96%;
+  --primary-foreground: 220 9% 46%;
+}`} 
+/>
+
+## Contribution
+
+Nous accueillons les contributions ! Consultez notre guide de contribution pour plus d'informations.
+
+## Licence
+
+MIT License - voir le fichier LICENSE pour plus de détails.
+
+## 🚨 Composant Alert créé
+
+### **Fonctionnalités** :
+- ✅ **5 variants** : default, info, success, warning, destructive
+- ✅ **3 tailles** : sm, md, lg
+- ✅ **Titre optionnel** : Pour une meilleure hiérarchie
+- ✅ **Icônes sémantiques** : Chaque variant a son icône appropriée
+- ✅ **Support du mode sombre** : Couleurs adaptées automatiquement
+- ✅ **Accessibilité** : Attribut `role="alert"` et contraste WCAG
+
+### **Variants disponibles** :
+- **Default** : Information générale
+- **Info** : Informations importantes
+- **Success** : Confirmations et succès
+- **Warning** : Avertissements
+- **Destructive** : Erreurs et actions critiques
+
+### **Intégration MDX** :
+- ✅ **Composant disponible** dans les fichiers Markdown
+- ✅ **Documentation complète** avec exemples interactifs
+- ✅ **Navigation mise à jour** dans la sidebar
+- ✅ **Exemple d'utilisation** dans la page d'introduction
+
+## Documentation
+
+### **Page dédiée** (`/docs/components/alert`) :
+- Vue d'ensemble et variants
+- Exemples interactifs
+- API complète avec props
+- Bonnes pratiques
+- Exemples avancés
+
+### **Navigation** :
+- Ajouté dans le menu "Composants"
+- Ajouté dans la sidebar
+- Description claire
+
+## Utilisation
+
+<CodeExample 
+  language="tsx" 
+  code={`import { Alert } from "@/components/Alert";
+
+// Utilisation simple
+<Alert>Message simple</Alert>
+
+// Avec variant et titre
+<Alert variant="success" title="Opération réussie">
+  Votre action a été effectuée avec succès.
+</Alert>`} 
+/>
+
+Votre design system a maintenant un composant Alert professionnel et bien documenté ! 🎉 
+
+<ComponentPreview
+  title="Titre de l'exemple"
+  reactCode={`import { Button } from "@/components/Button";
+
+<Button variant="primary">Cliquez-moi</Button>`}
+  vueCode={`<template>
+  <Button variant="primary">Cliquez-moi</Button>
+</template>
+
+<script setup>
+import { Button } from '@/components/Button.vue'
+</script>`}
+>
+  <Button variant="primary">Cliquez-moi</Button>
+</ComponentPreview> 

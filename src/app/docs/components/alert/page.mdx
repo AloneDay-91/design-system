@@ -1,0 +1,473 @@
+import { DismissibleAlert } from "@/components/DismissibleAlert"
+
+# Alert
+
+Le composant `Alert` affiche des messages importants à l'utilisateur avec différents niveaux de priorité et styles visuels.
+
+## Installation
+
+<InstallTabs
+  npm="npm install @radix-ui/react-slot class-variance-authority clsx tailwind-merge lucide-react"
+  yarn="yarn add @radix-ui/react-slot class-variance-authority clsx tailwind-merge lucide-react"
+  pnpm="pnpm add @radix-ui/react-slot class-variance-authority clsx tailwind-merge lucide-react"
+  bun="bun add @radix-ui/react-slot class-variance-authority clsx tailwind-merge lucide-react"
+/>
+
+<DownloadCode
+  componentName="Alert"
+  reactCode={`import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils"
+import { AlertCircle, CheckCircle, Info, XCircle } from "lucide-react"
+
+const alertVariants = cva(
+  "relative w-full rounded-lg border p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground",
+  {
+    variants: {
+      variant: {
+        default: "bg-background text-foreground",
+        destructive:
+          "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
+        success: "border-green-500/50 text-green-700 dark:text-green-400 [&>svg]:text-green-600",
+        warning: "border-yellow-500/50 text-yellow-700 dark:text-yellow-400 [&>svg]:text-yellow-600",
+        info: "border-blue-500/50 text-blue-700 dark:text-blue-400 [&>svg]:text-blue-600",
+      },
+      size: {
+        sm: "p-3 text-sm",
+        md: "p-4 text-base",
+        lg: "p-6 text-lg",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "md",
+    },
+  }
+)
+
+const alertIcons = {
+  default: Info,
+  destructive: XCircle,
+  success: CheckCircle,
+  warning: AlertCircle,
+  info: Info,
+}
+
+export interface AlertProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof alertVariants> {
+  icon?: React.ComponentType<{ className?: string }>
+}
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
+  ({ className, variant, size, icon, children, ...props }, ref) => {
+    const IconComponent = icon || alertIcons[variant || "default"]
+    
+    return (
+      <div
+        ref={ref}
+        role="alert"
+        className={cn(alertVariants({ variant, size }), className)}
+        {...props}
+      >
+        <IconComponent className="h-4 w-4" />
+        <div>{children}</div>
+      </div>
+    )
+  }
+)
+Alert.displayName = "Alert"
+
+const AlertDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("text-sm [&_p]:leading-relaxed", className)}
+    {...props}
+  />
+))
+AlertDescription.displayName = "AlertDescription"
+
+export { Alert, AlertDescription, alertVariants }`}
+  vueCode={`<template>
+  <div
+    :class="alertClasses"
+    role="alert"
+  >
+    <component :is="iconComponent" class="h-4 w-4" />
+    <div>
+      <slot />
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import { AlertCircle, CheckCircle, Info, XCircle } from 'lucide-vue-next'
+
+interface Props {
+  variant?: 'default' | 'destructive' | 'success' | 'warning' | 'info'
+  size?: 'sm' | 'md' | 'lg'
+  icon?: any
+  class?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  variant: 'default',
+  size: 'md'
+})
+
+const alertIcons = {
+  default: Info,
+  destructive: XCircle,
+  success: CheckCircle,
+  warning: AlertCircle,
+  info: Info,
+}
+
+const iconComponent = computed(() => {
+  return props.icon || alertIcons[props.variant]
+})
+
+const alertClasses = computed(() => {
+  const baseClasses = 'relative w-full rounded-lg border [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground'
+  
+  const variantClasses = {
+    default: 'bg-background text-foreground',
+    destructive: 'border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive',
+    success: 'border-green-500/50 text-green-700 dark:text-green-400 [&>svg]:text-green-600',
+    warning: 'border-yellow-500/50 text-yellow-700 dark:text-yellow-400 [&>svg]:text-yellow-600',
+    info: 'border-blue-500/50 text-blue-700 dark:text-blue-400 [&>svg]:text-blue-600'
+  }
+  
+  const sizeClasses = {
+    sm: 'p-3 text-sm',
+    md: 'p-4 text-base',
+    lg: 'p-6 text-lg'
+  }
+  
+  return [
+    baseClasses,
+    variantClasses[props.variant],
+    sizeClasses[props.size],
+    props.class
+  ].filter(Boolean).join(' ')
+})
+</script>`}
+  reactFileName="Alert.tsx"
+  vueFileName="Alert.vue"
+/>
+
+## Vue d'ensemble
+
+Le composant Alert permet d'afficher des messages importants à l'utilisateur avec différents niveaux de priorité. Il supporte plusieurs variants visuels et tailles pour s'adapter aux différents contextes d'utilisation.
+
+## Variants
+
+<ComponentPreview
+  title="Variants"
+  reactCode={`import { Alert } from "@/components/Alert";
+
+<Alert variant="default" title="Information par défaut">
+  Ceci est un message d'information standard avec un titre optionnel.
+</Alert>
+
+<Alert variant="info" title="Information">
+  Ceci est un message d'information avec des détails importants.
+</Alert>
+
+<Alert variant="success" title="Succès">
+  L'opération s'est déroulée avec succès !
+</Alert>
+
+<Alert variant="warning" title="Attention">
+  Veuillez vérifier vos informations avant de continuer.
+</Alert>
+
+<Alert variant="destructive" title="Erreur">
+  Une erreur s'est produite. Veuillez réessayer.
+</Alert>`}
+  vueCode={`<template>
+  <Alert variant="default" title="Information par défaut">
+    Ceci est un message d'information standard avec un titre optionnel.
+  </Alert>
+
+  <Alert variant="info" title="Information">
+    Ceci est un message d'information avec des détails importants.
+  </Alert>
+
+  <Alert variant="success" title="Succès">
+    L'opération s'est déroulée avec succès !
+  </Alert>
+
+  <Alert variant="warning" title="Attention">
+    Veuillez vérifier vos informations avant de continuer.
+  </Alert>
+
+  <Alert variant="destructive" title="Erreur">
+    Une erreur s'est produite. Veuillez réessayer.
+  </Alert>
+</template>
+
+<script setup>
+import { Alert } from '@/components/Alert.vue'
+</script>`}
+>
+  <div className="space-y-4">
+    <Alert variant="default" title="Information par défaut">
+      Ceci est un message d'information standard avec un titre optionnel.
+    </Alert>
+
+    <Alert variant="info" title="Information">
+      Ceci est un message d'information avec des détails importants.
+    </Alert>
+
+    <Alert variant="success" title="Succès">
+      L'opération s'est déroulée avec succès !
+    </Alert>
+
+    <Alert variant="warning" title="Attention">
+      Veuillez vérifier vos informations avant de continuer.
+    </Alert>
+
+    <Alert variant="destructive" title="Erreur">
+      Une erreur s'est produite. Veuillez réessayer.
+    </Alert>
+  </div>
+</ComponentPreview>
+
+### Default
+Le variant par défaut pour les informations générales.
+
+### Info
+Pour les informations importantes et les détails.
+
+### Success
+Pour confirmer les actions réussies et les validations.
+
+### Warning
+Pour les avertissements et les actions nécessitant une attention.
+
+### Destructive
+Pour les erreurs et les actions critiques.
+
+## Tailles
+
+<ComponentPreview
+  title="Tailles"
+  reactCode={`import { Alert } from "@/components/Alert";
+
+<Alert variant="info" size="sm" title="Petit">
+  Message compact pour les interfaces denses.
+</Alert>
+
+<Alert variant="info" size="md" title="Moyen">
+  Taille standard pour la plupart des cas d'usage.
+</Alert>
+
+<Alert variant="info" size="lg" title="Grand">
+  Taille importante pour les messages critiques.
+</Alert>`}
+  vueCode={`<template>
+  <Alert variant="info" size="sm" title="Petit">
+    Message compact pour les interfaces denses.
+  </Alert>
+
+  <Alert variant="info" size="md" title="Moyen">
+    Taille standard pour la plupart des cas d'usage.
+  </Alert>
+
+  <Alert variant="info" size="lg" title="Grand">
+    Taille importante pour les messages critiques.
+  </Alert>
+</template>
+
+<script setup>
+import { Alert } from '@/components/Alert.vue'
+</script>`}
+>
+  <div className="space-y-4">
+    <Alert variant="default" size="sm" title="Petit">
+      Message compact pour les interfaces denses.
+    </Alert>
+
+    <Alert variant="default" size="md" title="Moyen">
+      Taille standard pour la plupart des cas d'usage.
+    </Alert>
+
+    <Alert variant="default" size="lg" title="Grand">
+      Taille importante pour les messages critiques.
+    </Alert>
+  </div>
+</ComponentPreview>
+
+## API
+
+### Props
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Prop</TableHead>
+      <TableHead>Type</TableHead>
+      <TableHead>Défaut</TableHead>
+      <TableHead>Description</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell className="font-mono text-sm">variant</TableCell>
+      <TableCell className="font-mono text-sm">'default' | 'info' | 'success' | 'warning' | 'destructive'</TableCell>
+      <TableCell className="font-mono text-sm">'default'</TableCell>
+      <TableCell>Style visuel de l'alerte</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-mono text-sm">size</TableCell>
+      <TableCell className="font-mono text-sm">'sm' | 'md' | 'lg'</TableCell>
+      <TableCell className="font-mono text-sm">'md'</TableCell>
+      <TableCell>Taille de l'alerte</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-mono text-sm">title</TableCell>
+      <TableCell className="font-mono text-sm">string</TableCell>
+      <TableCell className="font-mono text-sm">-</TableCell>
+      <TableCell>Titre optionnel de l'alerte</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-mono text-sm">children</TableCell>
+      <TableCell className="font-mono text-sm">ReactNode</TableCell>
+      <TableCell className="font-mono text-sm">-</TableCell>
+      <TableCell>Contenu de l'alerte</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+### Props héritées
+
+Le composant Alert étend toutes les props HTML natives de la div :
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Prop</TableHead>
+      <TableHead>Description</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell className="font-mono text-sm">className</TableCell>
+      <TableCell>Classes CSS personnalisées</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-mono text-sm">id</TableCell>
+      <TableCell>Identifiant unique</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-mono text-sm">style</TableCell>
+      <TableCell>Styles inline</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+## Exemples avancés
+
+### Alerte avec actions
+
+<ComponentPreview
+  title="Alerte avec actions"
+  reactCode={`import { Alert } from "@/components/Alert";
+import { Button } from "@/components/Button";
+
+<Alert variant="warning" title="Session expirée">
+  <p>Votre session a expiré. Veuillez vous reconnecter.</p>
+  <div className="mt-3 flex gap-2">
+    <Button variant="default" size="sm">Se reconnecter</Button>
+    <Button variant="ghost" size="sm">Plus tard</Button>
+  </div>
+</Alert>`}
+  vueCode={`<template>
+  <Alert variant="warning" title="Session expirée">
+    <p>Votre session a expiré. Veuillez vous reconnecter.</p>
+    <div class="mt-3 flex gap-2">
+      <Button size="sm">Se reconnecter</Button>
+      <Button variant="ghost" size="sm">Plus tard</Button>
+    </div>
+  </Alert>
+</template>
+
+<script setup>
+import { Alert } from '@/components/Alert.vue'
+import { Button } from '@/components/Button.vue'
+</script>`}
+>
+  <Alert variant="warning" title="Session expirée">
+    <p>Votre session a expiré. Veuillez vous reconnecter.</p>
+    <div className="mt-3 flex gap-2">
+      <Button variant="outline" size="sm">Se reconnecter</Button>
+      <Button variant="ghost" size="sm">Plus tard</Button>
+    </div>
+  </Alert>
+</ComponentPreview>
+
+### Alerte avec liste
+
+<ComponentPreview
+  title="Alerte avec liste"
+  reactCode={`import { Alert } from "@/components/Alert";
+
+<Alert variant="info" title="Nouvelles fonctionnalités">
+  <ul className="mt-2 list-disc list-inside">
+    <li>Support du mode sombre</li>
+    <li>Nouvelles icônes</li>
+    <li>Amélioration des performances</li>
+  </ul>
+</Alert>`}
+  vueCode={`<template>
+  <Alert variant="info" title="Nouvelles fonctionnalités">
+    <ul class="mt-2 list-disc list-inside">
+      <li>Support du mode sombre</li>
+      <li>Nouvelles icônes</li>
+      <li>Amélioration des performances</li>
+    </ul>
+  </Alert>
+</template>
+
+<script setup>
+import { Alert } from '@/components/Alert.vue'
+</script>`}
+>
+  <Alert variant="info" title="Nouvelles fonctionnalités">
+    <ul className="mt-2 mb-0 mx-0 list-disc list-inside">
+      <li>Support du mode sombre</li>
+      <li>Nouvelles icônes</li>
+      <li>Amélioration des performances</li>
+    </ul>
+  </Alert>
+</ComponentPreview>
+
+### Alerte fermable
+
+<ComponentPreview
+  title="Alerte fermable"
+  reactCode={`import { DismissibleAlert } from "@/components/DismissibleAlert";
+
+<DismissibleAlert variant="default" title="Fermable">
+  Cette alerte peut être fermée par l'utilisateur.
+</DismissibleAlert>`}
+
+vueCode={`<template>
+  <DismissibleAlert variant="default" title="Fermable">
+    Cette alerte peut être fermée par l'utilisateur.
+  </DismissibleAlert>
+</template>
+
+<script setup>
+import { DismissibleAlert } from "@/components/DismissibleAlert"
+</script>`}
+>
+  <DismissibleAlert variant="default" title="Fermable">
+    Cette alerte peut être fermée par l'utilisateur.
+  </DismissibleAlert>
+</ComponentPreview> 

@@ -1,0 +1,567 @@
+# Card
+
+Le composant `Card` fournit une structure de base pour organiser le contenu en sections visuellement distinctes.
+
+<InstallCommands 
+  npmPackage="@radix-ui/react-slot"
+  dependencies={["class-variance-authority", "clsx", "tailwind-merge"]}
+  shadcnCommand="npx shadcn@latest add card"
+  vuePackage="@vueuse/core"
+  vueDependencies={["@vueuse/components"]}
+/>
+
+<DownloadCode
+  componentName="Card"
+  reactCode={`import * as React from "react"
+import { cn } from "@/lib/utils"
+
+const Card = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      "rounded-lg border bg-card text-card-foreground shadow-sm",
+      className
+    )}
+    {...props}
+  />
+))
+Card.displayName = "Card"
+
+const CardHeader = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex flex-col space-y-1.5 p-6", className)}
+    {...props}
+  />
+))
+CardHeader.displayName = "CardHeader"
+
+const CardTitle = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <h3
+    ref={ref}
+    className={cn(
+      "text-2xl font-semibold leading-none tracking-tight",
+      className
+    )}
+    {...props}
+  />
+))
+CardTitle.displayName = "CardTitle"
+
+const CardDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <p
+    ref={ref}
+    className={cn("text-sm text-muted-foreground", className)}
+    {...props}
+  />
+))
+CardDescription.displayName = "CardDescription"
+
+const CardContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+))
+CardContent.displayName = "CardContent"
+
+const CardFooter = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex items-center p-6 pt-0", className)}
+    {...props}
+  />
+))
+CardFooter.displayName = "CardFooter"
+
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }`}
+  vueCode={`<template>
+  <div :class="['rounded-lg border bg-card text-card-foreground shadow-sm', class]">
+    <slot />
+  </div>
+</template>
+
+<script setup lang="ts">
+interface Props {
+  class?: string
+}
+
+defineProps<Props>()
+</script>
+
+<script>
+// CardHeader
+export const CardHeader = {
+  name: 'CardHeader',
+  props: {
+    class: String
+  },
+  template: \`
+    <div :class="['flex flex-col space-y-1.5 p-6', class]">
+      <slot />
+    </div>
+  \`
+}
+
+// CardTitle
+export const CardTitle = {
+  name: 'CardTitle',
+  props: {
+    class: String
+  },
+  template: \`
+    <h3 :class="['text-2xl font-semibold leading-none tracking-tight', class]">
+      <slot />
+    </h3>
+  \`
+}
+
+// CardDescription
+export const CardDescription = {
+  name: 'CardDescription',
+  props: {
+    class: String
+  },
+  template: \`
+    <p :class="['text-sm text-muted-foreground', class]">
+      <slot />
+    </p>
+  \`
+}
+
+// CardContent
+export const CardContent = {
+  name: 'CardContent',
+  props: {
+    class: String
+  },
+  template: \`
+    <div :class="['p-6 pt-0', class]">
+      <slot />
+    </div>
+  \`
+}
+
+// CardFooter
+export const CardFooter = {
+  name: 'CardFooter',
+  props: {
+    class: String
+  },
+  template: \`
+    <div :class="['flex items-center p-6 pt-0', class]">
+      <slot />
+    </div>
+  \`
+}
+</script>`}
+  reactFileName="Card.tsx"
+  vueFileName="Card.vue"
+/>
+
+## Vue d'ensemble
+
+Le composant Card fournit une structure de base pour organiser le contenu en sections visuellement distinctes. Il se compose de plusieurs sous-composants qui permettent une organisation flexible du contenu.
+
+## Structure de base
+
+<ComponentPreview
+  title="Structure de base"
+  reactCode={`import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+
+<Card>
+  <CardHeader>
+    <CardTitle>Titre de la carte</CardTitle>
+    <CardDescription>Description de la carte</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <p>Contenu principal de la carte.</p>
+  </CardContent>
+  <CardFooter>
+    <p>Pied de page de la carte</p>
+  </CardFooter>
+</Card>`}
+  vueCode={`<template>
+  <Card>
+    <CardHeader>
+      <CardTitle>Titre de la carte</CardTitle>
+      <CardDescription>Description de la carte</CardDescription>
+    </CardHeader>
+    <CardContent>
+      <p>Contenu principal de la carte.</p>
+    </CardContent>
+    <CardFooter>
+      <p>Pied de page de la carte</p>
+    </CardFooter>
+  </Card>
+</template>
+
+<script setup>
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card.vue'
+</script>`}
+>
+  <Card>
+    <CardHeader>
+      <CardTitle>Titre de la carte</CardTitle>
+      <CardDescription>Description de la carte</CardDescription>
+    </CardHeader>
+    <CardContent>
+      <p>Contenu principal de la carte.</p>
+    </CardContent>
+    <CardFooter>
+      <p>Pied de page de la carte</p>
+    </CardFooter>
+  </Card>
+</ComponentPreview>
+
+## Carte simple
+
+<ComponentPreview
+  title="Carte simple"
+  reactCode={`import { Card, CardContent } from "@/components/ui/card";
+
+<Card>
+  <CardContent className="p-6">
+    <p>Une carte simple avec juste du contenu.</p>
+  </CardContent>
+</Card>`}
+  vueCode={`<template>
+  <Card>
+    <CardContent class="p-6">
+      <p>Une carte simple avec juste du contenu.</p>
+    </CardContent>
+  </Card>
+</template>
+
+<script setup>
+import { Card, CardContent } from '@/components/ui/card.vue'
+</script>`}
+>
+  <Card>
+    <CardContent className="p-6">
+      <p>Une carte simple avec juste du contenu.</p>
+    </CardContent>
+  </Card>
+</ComponentPreview>
+
+## Carte avec image
+
+<ComponentPreview
+  title="Carte avec image"
+  reactCode={`import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+
+<Card>
+  <CardHeader>
+    <CardTitle>Article de blog</CardTitle>
+    <CardDescription>Publié le 15 janvier 2024</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <div className="aspect-video bg-muted rounded-md mb-4" />
+    <p>Extrait de l'article de blog avec une image d'illustration.</p>
+  </CardContent>
+</Card>`}
+  vueCode={`<template>
+  <Card>
+    <CardHeader>
+      <CardTitle>Article de blog</CardTitle>
+      <CardDescription>Publié le 15 janvier 2024</CardDescription>
+    </CardHeader>
+    <CardContent>
+      <div class="aspect-video bg-muted rounded-md mb-4" />
+      <p>Extrait de l'article de blog avec une image d'illustration.</p>
+    </CardContent>
+  </Card>
+</template>
+
+<script setup>
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.vue'
+</script>`}
+>
+  <Card>
+    <CardHeader>
+      <CardTitle>Article de blog</CardTitle>
+      <CardDescription>Publié le 15 janvier 2024</CardDescription>
+    </CardHeader>
+    <CardContent>
+      <div className="aspect-video bg-muted rounded-md mb-4" />
+      <p>Extrait de l'article de blog avec une image d'illustration.</p>
+    </CardContent>
+  </Card>
+</ComponentPreview>
+
+## Grille de cartes
+
+<ComponentPreview
+  title="Grille de cartes"
+  reactCode={`import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <Card>
+    <CardHeader>
+      <CardTitle>Fonctionnalité 1</CardTitle>
+      <CardDescription>Description de la première fonctionnalité</CardDescription>
+    </CardHeader>
+    <CardContent>
+      <p>Détails sur cette fonctionnalité importante.</p>
+    </CardContent>
+  </Card>
+  
+  <Card>
+    <CardHeader>
+      <CardTitle>Fonctionnalité 2</CardTitle>
+      <CardDescription>Description de la deuxième fonctionnalité</CardDescription>
+    </CardHeader>
+    <CardContent>
+      <p>Détails sur cette fonctionnalité importante.</p>
+    </CardContent>
+  </Card>
+  
+  <Card>
+    <CardHeader>
+      <CardTitle>Fonctionnalité 3</CardTitle>
+      <CardDescription>Description de la troisième fonctionnalité</CardDescription>
+    </CardHeader>
+    <CardContent>
+      <p>Détails sur cette fonctionnalité importante.</p>
+    </CardContent>
+  </Card>
+</div>`}
+  vueCode={`<template>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>Fonctionnalité 1</CardTitle>
+        <CardDescription>Description de la première fonctionnalité</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Détails sur cette fonctionnalité importante.</p>
+      </CardContent>
+    </Card>
+    
+    <Card>
+      <CardHeader>
+        <CardTitle>Fonctionnalité 2</CardTitle>
+        <CardDescription>Description de la deuxième fonctionnalité</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Détails sur cette fonctionnalité importante.</p>
+      </CardContent>
+    </Card>
+    
+    <Card>
+      <CardHeader>
+        <CardTitle>Fonctionnalité 3</CardTitle>
+        <CardDescription>Description de la troisième fonctionnalité</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Détails sur cette fonctionnalité importante.</p>
+      </CardContent>
+    </Card>
+  </div>
+</template>
+
+<script setup>
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.vue'
+</script>`}
+>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>Fonctionnalité 1</CardTitle>
+        <CardDescription>Description de la première fonctionnalité</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Détails sur cette fonctionnalité importante.</p>
+      </CardContent>
+    </Card>
+    
+    <Card>
+      <CardHeader>
+        <CardTitle>Fonctionnalité 2</CardTitle>
+        <CardDescription>Description de la deuxième fonctionnalité</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Détails sur cette fonctionnalité importante.</p>
+      </CardContent>
+    </Card>
+    
+    <Card>
+      <CardHeader>
+        <CardTitle>Fonctionnalité 3</CardTitle>
+        <CardDescription>Description de la troisième fonctionnalité</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Détails sur cette fonctionnalité importante.</p>
+      </CardContent>
+    </Card>
+  </div>
+</ComponentPreview>
+
+## Carte interactive
+
+<ComponentPreview
+  title="Carte interactive"
+  reactCode={`import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/Button";
+
+<Card className="hover:shadow-lg transition-shadow cursor-pointer">
+  <CardHeader>
+    <CardTitle>Projet interactif</CardTitle>
+    <CardDescription>Cliquez pour voir les détails</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <p>Cette carte réagit au survol et peut être cliquée.</p>
+    <div className="mt-4">
+      <Button size="sm">Voir plus</Button>
+    </div>
+  </CardContent>
+</Card>`}
+  vueCode={`<template>
+  <Card class="hover:shadow-lg transition-shadow cursor-pointer">
+    <CardHeader>
+      <CardTitle>Projet interactif</CardTitle>
+      <CardDescription>Cliquez pour voir les détails</CardDescription>
+    </CardHeader>
+    <CardContent>
+      <p>Cette carte réagit au survol et peut être cliquée.</p>
+      <div class="mt-4">
+        <Button size="sm">Voir plus</Button>
+      </div>
+    </CardContent>
+  </Card>
+</template>
+
+<script setup>
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.vue'
+import { Button } from '@/components/Button.vue'
+</script>`}
+>
+  <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+    <CardHeader>
+      <CardTitle>Projet interactif</CardTitle>
+      <CardDescription>Cliquez pour voir les détails</CardDescription>
+    </CardHeader>
+    <CardContent>
+      <p>Cette carte réagit au survol et peut être cliquée.</p>
+      <div className="mt-4">
+        <Button size="sm">Voir plus</Button>
+      </div>
+    </CardContent>
+  </Card>
+</ComponentPreview>
+
+## Utilisation
+
+### Import
+
+<CodeBlock code={`import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";`} language="tsx" />
+
+### Structure recommandée
+
+<CodeBlock code={`<Card>
+  <CardHeader>
+    <CardTitle>Titre</CardTitle>
+    <CardDescription>Description</CardDescription>
+  </CardHeader>
+  <CardContent>
+    {/* Contenu principal */}
+  </CardContent>
+  <CardFooter>
+    {/* Actions ou informations supplémentaires */}
+  </CardFooter>
+</Card>`} language="tsx" />
+
+## API
+
+### Composants disponibles
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Composant</TableHead>
+      <TableHead>Description</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell className="font-mono text-sm">Card</TableCell>
+      <TableCell>Conteneur principal de la carte</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-mono text-sm">CardHeader</TableCell>
+      <TableCell>En-tête de la carte (titre + description)</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-mono text-sm">CardTitle</TableCell>
+      <TableCell>Titre de la carte</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-mono text-sm">CardDescription</TableCell>
+      <TableCell>Description de la carte</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-mono text-sm">CardContent</TableCell>
+      <TableCell>Contenu principal de la carte</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-mono text-sm">CardFooter</TableCell>
+      <TableCell>Pied de page de la carte</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+### Props
+
+Tous les composants Card étendent les props HTML natives de la div :
+
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Prop</TableHead>
+      <TableHead>Description</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell className="font-mono text-sm">className</TableCell>
+      <TableCell>Classes CSS personnalisées</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-mono text-sm">id</TableCell>
+      <TableCell>Identifiant unique</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell className="font-mono text-sm">style</TableCell>
+      <TableCell>Styles inline</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+## Bonnes pratiques
+
+### ✅ À faire
+- Utilisez des titres clairs et descriptifs
+- Gardez le contenu organisé et lisible
+- Utilisez les grilles pour organiser plusieurs cartes
+
+### ❌ À éviter
+- N'empilez pas trop d'informations dans une seule carte
+- Évitez les cartes trop grandes ou trop petites
+- Ne négligez pas l'espacement entre les éléments
+
+*Cette page sera mise à jour dès que le composant Card sera disponible.* 

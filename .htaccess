@@ -1,0 +1,10 @@
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]
+RewriteRule ^docs/?$ /docs.html [L]
+RewriteRule ^docs/components/button?$ /button.html [L]
+RewriteRule ^docs/components/alert?$ /alert.html [L]
+RewriteRule ^docs/components/input?$ /input.html [L]
+RewriteRule ^docs/components/card?$ /card.html [L]

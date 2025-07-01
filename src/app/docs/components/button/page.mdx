@@ -1,0 +1,235 @@
+import Link from "next/link"
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/TableWrapper"
+
+# Button
+
+Le composant `Button` est un élément de base de votre design system. Il applique toujours le style du variant `default` et ajoute les styles du variant choisi si différent.
+
+### Installation
+
+<InstallCommands 
+  npmPackage="@radix-ui/react-slot"
+  dependencies={["class-variance-authority", "clsx", "tailwind-merge", "lucide-react"]}
+  shadcnCommand="npx shadcn@latest add alert"
+  vuePackage="@vueuse/core"
+  vueDependencies={["@vueuse/components", "lucide-vue-next"]}
+/>
+
+<InstallTabs
+  npm="npm install @radix-ui/react-slot class-variance-authority clsx tailwind-merge"
+  yarn="yarn add @radix-ui/react-slot class-variance-authority clsx tailwind-merge"
+  pnpm="pnpm add @radix-ui/react-slot class-variance-authority clsx tailwind-merge"
+  bun="bun add @radix-ui/react-slot class-variance-authority clsx tailwind-merge"
+/>
+
+<DownloadCode
+  componentName="Button"
+  reactCode={`import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils"
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        primary: "bg-blue-600 text-white hover:bg-blue-700",
+        secondary: "bg-gray-200 text-gray-800 hover:bg-gray-300",
+        ghost: "text-blue-600 hover:bg-blue-50",        
+      },
+      size: {
+        sm: "h-8 px-2.5 text-sm",
+        md: "h-10 px-4 py-2",
+      },
+    },
+    defaultVariants: {
+      variant: "primary",
+      size: "md",
+    },
+  }
+)
+
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean
+}
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button"
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    )
+  }
+)
+Button.displayName = "Button"
+
+export { Button, buttonVariants }`}
+  vueCode={`<template>
+  <button
+    :class="buttonClasses"
+    :disabled="disabled"
+    @click="$emit('click', $event)"
+  >
+    <slot />
+  </button>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'ghost' | 'outline' | 'default'
+  size?: 'sm' | 'md'
+  disabled?: boolean
+  class?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  variant: 'primary',
+  size: 'md',
+  disabled: false
+})
+
+defineEmits<{
+  click: [event: MouseEvent]
+}>()
+
+const buttonClasses = computed(() => {
+  const baseClasses = 'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'
+  
+  const variantClasses = {
+    primary: 'bg-blue-600 text-white hover:bg-blue-700',
+    secondary: 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+    ghost: 'text-blue-600 hover:bg-blue-50'
+  }
+  
+  const sizeClasses = {
+    sm: 'h-8 px-2.5 text-sm',
+    md: 'h-10 px-4 py-2'
+  }
+  
+  return [
+    baseClasses,
+    variantClasses[props.variant],
+    sizeClasses[props.size],
+    props.class
+  ].filter(Boolean).join(' ')
+})
+</script>`}
+  reactFileName="Button.tsx"
+  vueFileName="Button.vue"
+/>
+
+## Utilisation de base
+
+```tsx
+import { Button } from "@/components/Button";
+
+<Button variant="primary">Principal</Button>
+<Button variant="secondary">Secondaire</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="link" size="link">Lien</Button>
+```
+
+## Exemples interactifs
+
+<ComponentPreview
+  title="Boutons"
+  reactCode={`import { Button } from "@/components/Button";
+
+<Button variant="primary">Principal</Button>
+<Button variant="secondary">Secondaire</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="link" size="link">Lien</Button>
+`}
+vueCode={`
+<script setup>
+import { Button } from "@/components/Button";
+</script>
+
+<template>
+<Button variant="primary">Principal</Button>
+<Button variant="secondary">Secondaire</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="link" size="link">Lien</Button>
+</template>
+`}
+>
+  <div className="flex gap-2 flex-wrap">
+    <Button variant="primary">Principal</Button>
+    <Button variant="secondary">Secondaire</Button>
+    <Button variant="ghost">Ghost</Button>
+    <Button variant="outline">Outline</Button>
+    <Button variant="link" size="link">Lien</Button>
+  </div>
+</ComponentPreview>
+
+## Variants disponibles
+
+- **default** (toujours appliqué) : `font-sm text-black dark:text-white font-medium`
+- **primary** : `bg-black text-white`
+- **secondary** : `bg-gray-200 text-gray-800`
+- **ghost** : `hover:bg-gray-300/20`
+- **outline** : `text-black border`
+- **link** : `border border-0 hover:border-b-1 !bg-transparent m-0 p-0`
+
+> Le style du variant choisi s'ajoute toujours à celui du variant `default`.
+
+## Tailles disponibles
+
+- **sm** : `text-sm py-1.5 px-2.5 rounded`
+- **md** (par défaut) : `text-base py-1.5 px-3.5 rounded-md`
+- **link** : `m-0 p-0`
+
+## API
+
+<Table>
+  <TableHeader>
+    <TableRow><TableHead>Prop</TableHead><TableHead>Type</TableHead><TableHead>Défaut</TableHead><TableHead>Description</TableHead></TableRow>
+  </TableHeader>
+  <TableBody><TableRow><TableCell className="font-mono text-sm">variant</TableCell><TableCell className="font-mono text-sm">"default" | "primary" | "secondary" | "ghost" | "outline" | "link"</TableCell><TableCell className="font-mono text-sm">"default"</TableCell><TableCell>Style visuel du bouton</TableCell></TableRow><TableRow><TableCell className="font-mono text-sm">size</TableCell><TableCell className="font-mono text-sm">"sm" | "md" | "link"</TableCell><TableCell className="font-mono text-sm">"md"</TableCell><TableCell>Taille du bouton</TableCell></TableRow><TableRow><TableCell className="font-mono text-sm">className</TableCell><TableCell className="font-mono text-sm">string</TableCell><TableCell className="font-mono text-sm">-</TableCell><TableCell>Classes CSS additionnelles</TableCell></TableRow><TableRow><TableCell className="font-mono text-sm">...props</TableCell><TableCell className="font-mono text-sm">ButtonHTMLAttributes&lt;HTMLButtonElement&gt;</TableCell><TableCell className="font-mono text-sm">-</TableCell><TableCell>Toutes les props natives d'un bouton HTML</TableCell></TableRow></TableBody>
+</Table>
+
+## Accessibilité
+
+- Support clavier (Tab, Enter, Espace)
+- Attributs ARIA natifs
+- Contraste conforme WCAG
+- Focus visible
+
+## Exemples avancés
+
+### Bouton avec icône
+
+```tsx
+import { Button } from "@/components/Button";
+import { Plus } from "lucide-react";
+
+<Button variant="primary" size="sm">
+  <Plus className="w-4 h-4 mr-2" />
+  Ajouter
+</Button>
+```
+
+### Bouton dans un lien
+
+```tsx
+import Link from "next/link";
+import { Button } from "@/components/Button";
+
+<Link href="/docs">
+  <Button variant="primary">Voir la documentation</Button>
+</Link>
+```
+
+N'hésite pas à adapter cette doc à tes besoins spécifiques ou à ajouter d'autres exemples ! Cette version est parfaitement alignée avec le fonctionnement de ton composant Button actuel. 
