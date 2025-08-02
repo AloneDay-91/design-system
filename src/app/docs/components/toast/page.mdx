@@ -1,0 +1,122 @@
+import Link from "next/link";
+import { InstallTabs } from "@/components/InstallTabs";
+import { ToastBasicExample, ToastTypesExample, ToastPromiseExample } from "@/components/exemples/Toast/ToastExamples";
+import { ToastPropertiesTable } from "@/components/exemples/Toast/ToastPropertiesTable";
+import { ToastDownloadCode } from "@/components/exemples/Toast/ToastDownloadCode";
+
+# Toast
+
+Un composant Toast de haute qualité pour générer des notifications. Système complet de gestion des toasts avec animations, empilage et support des promesses.
+
+## Aperçu
+
+<ToastBasicExample />
+
+## Installation
+
+<InstallTabs
+  npm="npm install tailwind-merge react-dom"
+  yarn="yarn add tailwind-merge react-dom"
+  pnpm="pnpm add tailwind-merge react-dom"
+  bun="bun add tailwind-merge react-dom"
+/>
+
+## Anatomie
+
+Le composant Toast est composé de plusieurs parties qui travaillent ensemble :
+
+```jsx
+import { Toast } from "@/design-system";
+
+<Toast.Provider>
+  <Toast.Portal>
+    <Toast.Viewport>
+      <Toast.Root>
+        <Toast.Title />
+        <Toast.Description />
+        <Toast.Action />
+        <Toast.Close />
+      </Toast.Root>
+    </Toast.Viewport>
+  </Toast.Portal>
+</Toast.Provider>
+```
+
+## Exemples d'utilisation
+
+### Types de toast
+
+<ToastTypesExample />
+
+### Toast avec Promise
+
+<ToastPromiseExample />
+
+## Utilisation avancée
+
+### Manager global
+
+Vous pouvez créer un manager global pour utiliser les toasts depuis n'importe où dans votre application :
+
+```tsx
+// toast-manager.ts
+import { Toast } from "@/design-system";
+
+export const globalToastManager = Toast.createToastManager();
+
+// Utilisation
+globalToastManager.add({
+  title: "Notification globale",
+  description: "Appelée depuis n'importe où !",
+});
+```
+
+### Avec des données personnalisées
+
+```tsx
+interface CustomToastData {
+  userId: string;
+  action: string;
+}
+
+const toastManager = Toast.useToastManager();
+
+toastManager.add({
+  title: "Action utilisateur",
+  description: "L'utilisateur a effectué une action",
+  data: {
+    userId: "123",
+    action: "delete"
+  } as CustomToastData
+});
+```
+
+### Actions personnalisées
+
+```tsx
+const toastManager = Toast.useToastManager();
+
+const toastId = toastManager.add({
+  title: "Fichier supprimé",
+  description: "Le fichier a été supprimé avec succès",
+  actionProps: {
+    children: "Annuler",
+    onClick: () => {
+      // Logique d'annulation
+      toastManager.close(toastId);
+      toastManager.add({
+        title: "Action annulée",
+        description: "Le fichier a été restauré",
+      });
+    }
+  }
+});
+```
+
+## Propriétés
+
+<ToastPropertiesTable />
+
+## Code source
+
+<ToastDownloadCode />

@@ -1,0 +1,109 @@
+import { FieldBasicExample, FieldValidationExample, FieldStatesExample } from "@/components/exemples/Field/FieldExamples"
+import { FieldPropertiesTable } from "@/components/exemples/Field/FieldPropertiesTable"
+import { FieldDownloadCode } from "@/components/exemples/Field/FieldDownloadCode"
+
+# Field
+
+Un composant de champ de formulaire de haute qualité qui fournit l'étiquetage et la validation pour les contrôles de formulaire.
+
+## Exemples
+
+### Utilisation de base
+
+<FieldBasicExample />
+
+### Validation personnalisée
+
+<FieldValidationExample />
+
+### États du champ
+
+<FieldStatesExample />
+
+## Anatomie
+
+Le composant Field est composé de plusieurs parties qui peuvent être utilisées ensemble :
+
+```jsx
+import { Field } from "@/design-system"
+
+<Field.Root>
+  <Field.Label />
+  <Field.Control />
+  <Field.Description />
+  <Field.Error />
+  <Field.Validity />
+</Field.Root>
+```
+
+## Propriétés de l'API
+
+<FieldPropertiesTable />
+
+## Accessibilité
+
+- Le label est automatiquement associé au contrôle via l'attribut `htmlFor`
+- Les messages d'erreur sont liés au contrôle via `aria-describedby`
+- Les états de validation sont exposés via des attributs de données
+- Support complet du clavier et des lecteurs d'écran
+
+## Validation
+
+Le composant Field supporte plusieurs modes de validation :
+
+### Validation HTML native
+
+```jsx
+<Field.Root>
+  <Field.Label>Email</Field.Label>
+  <Field.Control
+    type="email"
+    required
+    placeholder="votre@email.com"
+  />
+  <Field.Error match="valueMissing">
+    L'email est requis
+  </Field.Error>
+  <Field.Error match="typeMismatch">
+    Format d'email invalide
+  </Field.Error>
+</Field.Root>
+```
+
+### Validation personnalisée
+
+```jsx
+<Field.Root
+  validate={(value) => {
+    if (!value) return "Ce champ est requis"
+    if (value.length < 3) return "Minimum 3 caractères"
+    return null
+  }}
+  validationMode="onChange"
+  validationDebounceTime={300}
+>
+  <Field.Label>Nom d'utilisateur</Field.Label>
+  <Field.Control placeholder="Votre nom" />
+  <Field.Error match={true}>
+    <Field.Validity>
+      {(validity) => validity.errors[0]}
+    </Field.Validity>
+  </Field.Error>
+</Field.Root>
+```
+
+## États du composant
+
+Le composant Field expose plusieurs états via des attributs de données et le contexte :
+
+- `data-disabled` - Présent quand le champ est désactivé
+- `data-valid` - Présent quand le champ est valide
+- `data-invalid` - Présent quand le champ est invalide
+- `data-dirty` - Présent quand la valeur du champ a changé
+- `data-touched` - Présent quand le champ a été touché
+- `data-filled` - Présent quand le champ est rempli
+- `data-focused` - Présent quand le contrôle du champ est focalisé
+
+## Code source
+
+<FieldDownloadCode />

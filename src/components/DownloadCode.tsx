@@ -89,7 +89,7 @@ export function DownloadCode({
         </TabsContent>
         
         <TabsContent value="vue" className="mt-4">
-          <CodeBlock
+          <CodeBlock 
             language="vue"
             title={vueFile}
             showCopyButton={true}

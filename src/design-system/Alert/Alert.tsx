@@ -4,11 +4,11 @@ import { twMerge } from "tailwind-merge";
 import { HTMLAttributes, forwardRef } from "react";
 
 const variants: Record<string, string> = {
-  default: "bg-background text-foreground border-border",
-  destructive: "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
-  success: "border-green-500/50 bg-green-50 text-green-900 dark:border-green-500 dark:bg-green-950 dark:text-green-300 [&>svg]:text-green-600 dark:[&>svg]:text-green-300",
-  warning: "border-yellow-500/50 bg-yellow-50 text-yellow-900 dark:border-yellow-500 dark:bg-yellow-950 dark:text-yellow-300 [&>svg]:text-yellow-600 dark:[&>svg]:text-yellow-300",
-  info: "border-blue-500/50 bg-blue-50 text-blue-900 dark:border-blue-500 dark:bg-blue-950 dark:text-blue-300 [&>svg]:text-blue-600 dark:[&>svg]:text-blue-300"
+  default: "bg-card text-foreground border-border",
+  destructive: "bg-card border border-border text-destructive [&>svg]:text-destructive",
+  success: "bg-card border border-border text-green-900 dark:text-green-300 [&>svg]:text-green-600 dark:[&>svg]:text-green-300",
+  warning: "bg-card border border-border text-yellow-950 dark:text-yellow-300 [&>svg]:text-yellow-600 dark:[&>svg]:text-yellow-300",
+  info: "bg-card border border-border dark:text-blue-300 [&>svg]:text-blue-600 dark:[&>svg]:text-blue-300"
 };
 
 export interface AlertProps extends HTMLAttributes<HTMLDivElement> {
