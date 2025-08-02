@@ -3,6 +3,8 @@
 import { ComponentPreview } from "@/components/ComponentPreview";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/design-system";
 import { Button } from "@/design-system";
+import { Form } from "@/design-system";
+import { Input } from "@/design-system";
 
 export function DialogBasicExample() {
   return (
@@ -10,6 +12,8 @@ export function DialogBasicExample() {
       title="Dialog de base"
       reactCode={`import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/design-system";
 import { Button } from "@/design-system";
+import { Form } from "@/design-system";
+import { Input } from "@/design-system";
 
 export default function Example() {
   return (
@@ -24,12 +28,13 @@ export default function Example() {
             Apportez des modifications à votre profil ici. Cliquez sur sauvegarder lorsque vous avez terminé.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
+            <DialogContent>
+                <Form className="grid gap-4 p-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <label htmlFor="name" className="text-right">
               Nom
             </label>
-            <input
+            <Input
               id="name"
               defaultValue="Pedro Duarte"
               className="col-span-3 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -45,7 +50,8 @@ export default function Example() {
               className="col-span-3 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             />
           </div>
-        </div>
+        </Form>
+            </DialogContent>
         <DialogFooter>
           <Button type="submit">Sauvegarder</Button>
         </DialogFooter>
@@ -93,28 +99,28 @@ export default function Example() {
               Apportez des modifications à votre profil ici. Cliquez sur sauvegarder lorsque vous avez terminé.
             </DialogDescription>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <label htmlFor="name" className="text-right">
+          <Form className="pt-0 px-6 pb-6">
+            <div className="">
+              <label htmlFor="name" className="text-right text-sm font-medium">
                 Nom
               </label>
-              <input
+              <Input
                 id="name"
                 defaultValue="Pedro Duarte"
                 className="col-span-3 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <label htmlFor="username" className="text-right">
+            <div className="">
+              <label htmlFor="username" className="text-right text-sm font-medium">
                 Username
               </label>
-              <input
+              <Input
                 id="username"
                 defaultValue="@peduarte"
                 className="col-span-3 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               />
             </div>
-          </div>
+          </Form>
           <DialogFooter>
             <Button type="submit">Sauvegarder</Button>
           </DialogFooter>
@@ -169,15 +175,15 @@ export default function Example() {
               Veuillez lire attentivement nos conditions d&#39;utilisation.
             </DialogDescription>
           </DialogHeader>
-          <div className="max-h-[300px] overflow-y-auto">
-            <div className="space-y-4 text-sm">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-              <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-              <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <div className="max-h-[300px] overflow-y-auto px-6 pb-6">
+              <div className="space-y-4 text-sm">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              </div>
             </div>
-          </div>
         </DialogContent>
       </Dialog>
     </ComponentPreview>

@@ -1,7 +1,7 @@
 import { NavigationMenu, NavigationMenuLink, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeSwitcher } from "@/components/theme-toggle";
 import { MobileSidebar } from "@/components/MobileSidebar";
 import Link from "next/link";
 import { Menu, Search, Github } from "lucide-react";
@@ -149,7 +149,7 @@ export default function Header() {
           )}
 
           {/* Theme toggle */}
-          <ThemeToggle />
+          <ThemeSwitcher />
 
           {/* GitHub */}
           <Button variant="ghost" size="icon" asChild>
@@ -162,4 +162,4 @@ export default function Header() {
       </div>
     </header>
   );
-} 
+}

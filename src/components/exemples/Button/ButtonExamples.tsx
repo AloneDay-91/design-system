@@ -13,7 +13,6 @@ export default function Example() {
   return (
     <div className="flex gap-3 flex-wrap">
       <Button>Default</Button>
-      <Button variant="primary">Primary</Button>
       <Button variant="secondary">Secondary</Button>
       <Button variant="outline">Outline</Button>
       <Button variant="ghost">Ghost</Button>
@@ -24,7 +23,6 @@ export default function Example() {
       vueCode={`<template>
   <div class="flex gap-3 flex-wrap">
     <Button>Default</Button>
-    <Button variant="primary">Primary</Button>
     <Button variant="secondary">Secondary</Button>
     <Button variant="outline">Outline</Button>
     <Button variant="ghost">Ghost</Button>
@@ -34,7 +32,6 @@ export default function Example() {
     >
       <div className="flex gap-3 flex-wrap">
         <Button>Default</Button>
-        <Button variant="primary">Primary</Button>
         <Button variant="secondary">Secondary</Button>
         <Button variant="outline">Outline</Button>
         <Button variant="ghost">Ghost</Button>
@@ -79,15 +76,14 @@ export default function Example() {
   return (
     <div className="flex gap-3">
       <Button disabled>Default</Button>
-      <Button variant="primary" disabled>Primary</Button>
+      <Button variant="default" disabled>Default</Button>
       <Button variant="outline" disabled>Outline</Button>
     </div>
   );
 }`}
     >
       <div className="flex gap-3">
-        <Button disabled>Default</Button>
-        <Button variant="primary" disabled>Primary</Button>
+        <Button variant="default" disabled>Default</Button>
         <Button variant="outline" disabled>Outline</Button>
       </div>
     </ComponentPreview>

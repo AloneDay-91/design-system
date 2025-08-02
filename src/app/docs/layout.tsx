@@ -30,6 +30,11 @@ export default function DocsLayout({
                       <TableOfContentsWrapper />
                     </div>
                   </div>
+
+                  <div>
+
+                  </div>
+
                 </aside>
               </main>
             </div>

@@ -1,0 +1,205 @@
+import { FormBasicExample, FormWithValidationExample, FormComplexExample } from "@/components/exemples/Form/FormExamples"
+import { FormPropertiesTable } from "@/components/exemples/Form/FormPropertiesTable"
+import { FormDownloadCode } from "@/components/exemples/Form/FormDownloadCode"
+
+# Form
+
+Un élément de formulaire natif avec gestion consolidée des erreurs. Ce composant offre une approche structurée pour la gestion des formulaires avec validation et gestion d'état intégrée.
+
+## Exemples
+
+### Utilisation de base
+
+<FormBasicExample />
+
+### Validation côté serveur
+
+<FormWithValidationExample />
+
+### Formulaire complexe
+
+<FormComplexExample />
+
+## Anatomie
+
+Le composant Form fonctionne avec le composant [Field](/docs/components/field) pour créer des formulaires complets :
+
+```jsx
+import { Form, FormField, FormSubmit, FormDescription, Field } from "@/design-system"
+
+<Form errors={errors} onClearErrors={setErrors} onSubmit={handleSubmit}>
+  <FormDescription>Description du formulaire</FormDescription>
+
+  <FormField name="email">
+    <Field.Root name="email">
+      <Field.Label />
+      <Field.Control />
+      <Field.Description />
+      <Field.Error />
+    </Field.Root>
+  </FormField>
+
+  <FormSubmit>Envoyer</FormSubmit>
+</Form>
+```
+
+## Propriétés de l'API
+
+<FormPropertiesTable />
+
+## Gestion des erreurs
+
+Le composant Form centralise la gestion des erreurs via l'objet `errors` où les clés correspondent aux attributs `name` des champs :
+
+### Erreurs basiques
+
+```jsx
+const [errors, setErrors] = useState({
+  email: "Format d'email invalide",
+  password: "Le mot de passe est requis"
+})
+
+<Form errors={errors} onClearErrors={setErrors}>
+  <FormField name="email">
+    <Field.Root name="email">
+      <Field.Label>Email</Field.Label>
+      <Field.Control type="email" />
+      <Field.Error /> {/* Affiche automatiquement errors.email */}
+    </Field.Root>
+  </FormField>
+</Form>
+```
+
+### Erreurs multiples par champ
+
+```jsx
+const errors = {
+  password: [
+    "Le mot de passe est requis",
+    "Minimum 8 caractères"
+  ]
+}
+```
+
+### Validation avec Zod
+
+Le composant fonctionne parfaitement avec Zod pour la validation de schémas :
+
+```jsx
+import { z } from 'zod'
+
+const schema = z.object({
+  name: z.string().min(1, "Le nom est requis"),
+  email: z.string().email("Format d'email invalide"),
+  age: z.coerce.number().min(18, "Vous devez avoir au moins 18 ans")
+})
+
+const handleSubmit = async (event) => {
+  event.preventDefault()
+  const formData = new FormData(event.currentTarget)
+  const result = schema.safeParse(Object.fromEntries(formData))
+
+  if (!result.success) {
+    setErrors(result.error.flatten().fieldErrors)
+    return
+  }
+
+  // Traitement des données valides
+  console.log(result.data)
+}
+```
+
+## États du formulaire
+
+Le composant Form expose plusieurs états via le contexte :
+
+- **`submitting`** - Indique si le formulaire est en cours de soumission
+- **`errors`** - Objet contenant toutes les erreurs du formulaire
+
+Ces états sont automatiquement gérés et mis à jour lors des interactions :
+
+```jsx
+function CustomSubmitButton() {
+  const { state } = useFormContext()
+
+  return (
+    <button disabled={state.submitting}>
+      {state.submitting ? 'Envoi...' : 'Envoyer'}
+    </button>
+  )
+}
+```
+
+## Intégration avec Field
+
+Le composant `FormField` fait le lien entre `Form` et `Field` :
+
+- **Injection automatique des erreurs** : Les erreurs sont automatiquement passées aux composants `Field.Error`
+- **Gestion de l'état** : Les états de validation sont partagés entre les composants
+- **Accessibilité** : Les attributs ARIA sont automatiquement gérés
+
+## Bonnes pratiques
+
+### 1. Validation côté client et serveur
+
+```jsx
+const handleSubmit = async (event) => {
+  event.preventDefault()
+
+  // Validation côté client
+  const clientErrors = validateClientSide(formData)
+  if (clientErrors) {
+    setErrors(clientErrors)
+    return
+  }
+
+  // Envoi au serveur
+  try {
+    const response = await submitToServer(formData)
+    if (response.errors) {
+      setErrors(response.errors) // Erreurs serveur
+    }
+  } catch (error) {
+    setErrors({ _form: "Erreur de réseau" })
+  }
+}
+```
+
+### 2. Reset du formulaire
+
+```jsx
+const resetForm = () => {
+  setErrors({})
+  formRef.current?.reset()
+}
+```
+
+### 3. Validation en temps réel
+
+```jsx
+<Field.Root
+  name="email"
+  validate={(value) => {
+    if (!value) return "Email requis"
+    if (!/^[^@]+@[^@]+\.[^@]+$/.test(value)) {
+      return "Format invalide"
+    }
+    return null
+  }}
+  validationMode="onChange"
+>
+  <Field.Control />
+  <Field.Error />
+</Field.Root>
+```
+
+## Accessibilité
+
+- Les erreurs sont automatiquement associées aux champs via `aria-describedby`
+- Le formulaire utilise `noValidate` pour une validation personnalisée
+- Les états d'erreur sont exposés via des attributs de données
+- Support complet du clavier et des lecteurs d'écran
+
+## Code source
+
+<FormDownloadCode />

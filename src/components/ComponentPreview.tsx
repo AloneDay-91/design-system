@@ -75,7 +75,7 @@ export function ComponentPreview({
       <div className="relative">
         {activeTab === "preview" ? (
           <div className="p-6">
-            <div className="flex items-center justify-center min-h-[200px] rounded-lg border-2 border-dashed border-border bg-background/50 p-6">
+            <div className="flex items-center justify-center min-h-[200px] rounded-lg border border-border bg-background p-6">
               {children}
             </div>
           </div>

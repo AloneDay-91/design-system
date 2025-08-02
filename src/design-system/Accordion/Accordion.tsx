@@ -268,7 +268,7 @@ export const AccordionPanel = forwardRef<HTMLDivElement, AccordionPanelProps>(
         data-disabled={disabled ? "" : undefined}
         className={twMerge(
           "overflow-hidden text-sm text-muted-foreground",
-          "transition-all duration-200 ease-out px-2",
+          "transition-all duration-200 ease-out px-2 py-4",
           open ? "animate-accordion-down" : "animate-accordion-up",
           !open && keepMounted && "hidden",
           className

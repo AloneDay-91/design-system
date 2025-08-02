@@ -48,6 +48,16 @@ const componentOrder = [
 		description: "Fenêtre modale pour afficher du contenu additionnel",
 	},
 	{
+		title: "Field",
+		href: "/docs/components/field",
+		description: "Composant de champ de formulaire avec validation et étiquetage",
+	},
+	{
+		title: "Form",
+		href: "/docs/components/form",
+		description: "Élément de formulaire natif avec gestion consolidée des erreurs",
+	},
+	{
 		title: "Input",
 		href: "/docs/components/input",
 		description: "Champ de saisie de texte avec validation",

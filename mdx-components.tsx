@@ -9,7 +9,7 @@ import {
   CardHeader, 
   CardTitle 
 } from '@/components/CardWrapper';
-import { Input } from '@/components/InputWrapper';
+import { InputWrapper as Input } from '@/components/InputWrapper';
 import {
   Table,
   TableBody,
@@ -70,4 +70,4 @@ export function useMDXComponents(components: Record<string, unknown>): Record<st
     // Vous pouvez ajouter d'autres composants ici
     ...components,
   };
-} 
+}
