@@ -1,166 +1,188 @@
-# Lumen/UI
+import { CodeExample } from "@/components/CodeExample"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import Link from "next/link"
 
-Bienvenue dans la documentation de Lumen/UI. Cette page utilise Markdown avec des composants React intégrés.
+# Vue d'ensemble
 
-## Vue d'ensemble
+Bienvenue dans notre **Design System** moderne et accessible, conçu pour créer des interfaces utilisateur élégantes et cohérentes. Basé sur **shadcn/ui** et **Tailwind CSS**, ce système offre une collection de composants réutilisables et personnalisables.
 
-Notre design system est construit avec les technologies suivantes :
+## ✨ Pourquoi ce Design System ?
 
-- **Next.js 15** - Framework React moderne
-- **TypeScript** - Typage statique pour une meilleure DX
-- **Tailwind CSS** - Framework CSS utilitaire
-- **shadcn/ui** - Composants d'interface utilisateur
-- **MDX** - Documentation interactive
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-8">
+  <Card>
+    <CardHeader>
+      <CardTitle className="text-lg">🎨 Design Cohérent</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <CardDescription>
+        Tous les composants suivent les mêmes principes de design pour une expérience utilisateur unifiée.
+      </CardDescription>
+    </CardContent>
+  </Card>
 
-## Philosophie
+  <Card>
+    <CardHeader>
+      <CardTitle className="text-lg">♿ Accessibilité</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <CardDescription>
+        Conformité WCAG 2.1 avec support complet du clavier et des lecteurs d'écran.
+      </CardDescription>
+    </CardContent>
+  </Card>
 
-Notre design system suit les principes suivants :
+  <Card>
+    <CardHeader>
+      <CardTitle className="text-lg">🌙 Thème Sombre</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <CardDescription>
+        Support natif du mode sombre avec transitions fluides entre les thèmes.
+      </CardDescription>
+    </CardContent>
+  </Card>
+</div>
 
-### Accessibilité
-Tous nos composants sont conçus avec l'accessibilité en tête, respectant les standards WCAG 2.1.
+## 🚀 Technologies utilisées
 
-### Performance
-Optimisation des performances avec des composants légers et une tree-shaking efficace.
+Notre design system s'appuie sur des technologies modernes et éprouvées :
 
-### Personnalisation
-Facilité de personnalisation grâce à Tailwind CSS et des variables CSS cohérentes.
+- **React** - Bibliothèque JavaScript pour créer des interfaces utilisateur
+- **TypeScript** - Typage statique pour une meilleure expérience de développement
+- **Tailwind CSS** - Framework CSS utilitaire pour un styling rapide
+- **shadcn/ui** - Collection de composants copiables et personnalisables
+- **Radix UI** - Primitives headless pour l'accessibilité
+- **Lucide React** - Icônes modernes et cohérentes
 
-### Cohérence
-Design cohérent à travers tous les composants avec des tokens de design unifiés.
+## 📦 Composants disponibles
 
-## Installation
+<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-8">
+  <Link href="/docs/components/accordion" className="group">
+    <Card className="h-full transition-colors hover:bg-accent/50">
+      <CardContent className="p-4 text-center">
+        <div className="font-medium text-sm">Accordion</div>
+        <Badge variant="secondary" className="mt-2">Disponible</Badge>
+      </CardContent>
+    </Card>
+  </Link>
 
-<CodeExample language="bash" code="npm install mon-design-system" />
+  <Link href="/docs/components/alert" className="group">
+    <Card className="h-full transition-colors hover:bg-accent/50">
+      <CardContent className="p-4 text-center">
+        <div className="font-medium text-sm">Alert</div>
+        <Badge variant="secondary" className="mt-2">Disponible</Badge>
+      </CardContent>
+    </Card>
+  </Link>
 
-## Utilisation rapide
+  <Link href="/docs/components/avatar" className="group">
+    <Card className="h-full transition-colors hover:bg-accent/50">
+      <CardContent className="p-4 text-center">
+        <div className="font-medium text-sm">Avatar</div>
+        <Badge variant="secondary" className="mt-2">Disponible</Badge>
+      </CardContent>
+    </Card>
+  </Link>
 
-<CodeExample 
-  language="tsx" 
-  code={`import { Button } from "mon-design-system";
+  <Link href="/docs/components/button" className="group">
+    <Card className="h-full transition-colors hover:bg-accent/50">
+      <CardContent className="p-4 text-center">
+        <div className="font-medium text-sm">Button</div>
+        <Badge variant="secondary" className="mt-2">Disponible</Badge>
+      </CardContent>
+    </Card>
+  </Link>
 
-function App() {
+  <Link href="/docs/components/card" className="group">
+    <Card className="h-full transition-colors hover:bg-accent/50">
+      <CardContent className="p-4 text-center">
+        <div className="font-medium text-sm">Card</div>
+        <Badge variant="secondary" className="mt-2">Disponible</Badge>
+      </CardContent>
+    </Card>
+  </Link>
+
+  <Link href="/docs/components/checkbox" className="group">
+    <Card className="h-full transition-colors hover:bg-accent/50">
+      <CardContent className="p-4 text-center">
+        <div className="font-medium text-sm">Checkbox</div>
+        <Badge variant="secondary" className="mt-2">Disponible</Badge>
+      </CardContent>
+    </Card>
+  </Link>
+
+  <Link href="/docs/components/dialog" className="group">
+    <Card className="h-full transition-colors hover:bg-accent/50">
+      <CardContent className="p-4 text-center">
+        <div className="font-medium text-sm">Dialog</div>
+        <Badge variant="secondary" className="mt-2">Disponible</Badge>
+      </CardContent>
+    </Card>
+  </Link>
+
+  <Card className="h-full opacity-60">
+    <CardContent className="p-4 text-center">
+      <div className="font-medium text-sm">Input</div>
+      <Badge variant="outline" className="mt-2">Bientôt</Badge>
+    </CardContent>
+  </Card>
+</div>
+
+## 🎯 Exemple rapide
+
+Voici comment utiliser un composant de notre design system :
+
+<CodeExample
+  title="Exemple de bouton"
+  description="Un exemple simple d'utilisation du composant Button"
+  code={`import { Button } from "@/components/ui/button"
+
+export function Example() {
   return (
-    <Button variant="primary">
-      Cliquez-moi
-    </Button>
-  );
-}`} 
-/>
-
-## Composants disponibles
-
-### Composants de base
-- **[Button](/docs/components/button)** - Boutons avec différents variants
-- **[Alert](/docs/components/alert)** - Messages d'alerte et notifications
-- **[Input](/docs/components/input)** - Champs de saisie (en cours)
-- **[Card](/docs/components/card)** - Conteneurs (en cours)
-
-### Composants de navigation
-- **[Navigation](/docs/components/navigation)** - Menus et navigation (en cours)
-
-### Composants de feedback
-- **[Toast](/docs/components/toast)** - Notifications (en cours)
-
-## Configuration
-
-### Thème
-
-Notre design system supporte les thèmes clair et sombre :
-
-<CodeExample 
-  language="tsx" 
-  code={`// Dans votre app
-<ThemeProvider>
-  <App />
-</ThemeProvider>`} 
-/>
-
-### Variables CSS
-
-Vous pouvez personnaliser les couleurs et espacements :
-
-<CodeExample 
-  language="css" 
-  code={`:root {
-  --primary: 220 14% 96%;
-  --primary-foreground: 220 9% 46%;
-}`} 
-/>
-
-## Contribution
-
-Nous accueillons les contributions ! Consultez notre guide de contribution pour plus d'informations.
-
-## Licence
-
-MIT License - voir le fichier LICENSE pour plus de détails.
-
-## 🚨 Composant Alert créé
-
-### **Fonctionnalités** :
-- ✅ **5 variants** : default, info, success, warning, destructive
-- ✅ **3 tailles** : sm, md, lg
-- ✅ **Titre optionnel** : Pour une meilleure hiérarchie
-- ✅ **Icônes sémantiques** : Chaque variant a son icône appropriée
-- ✅ **Support du mode sombre** : Couleurs adaptées automatiquement
-- ✅ **Accessibilité** : Attribut `role="alert"` et contraste WCAG
-
-### **Variants disponibles** :
-- **Default** : Information générale
-- **Info** : Informations importantes
-- **Success** : Confirmations et succès
-- **Warning** : Avertissements
-- **Destructive** : Erreurs et actions critiques
-
-### **Intégration MDX** :
-- ✅ **Composant disponible** dans les fichiers Markdown
-- ✅ **Documentation complète** avec exemples interactifs
-- ✅ **Navigation mise à jour** dans la sidebar
-- ✅ **Exemple d'utilisation** dans la page d'introduction
-
-## Documentation
-
-### **Page dédiée** (`/docs/components/alert`) :
-- Vue d'ensemble et variants
-- Exemples interactifs
-- API complète avec props
-- Bonnes pratiques
-- Exemples avancés
-
-### **Navigation** :
-- Ajouté dans le menu "Composants"
-- Ajouté dans la sidebar
-- Description claire
-
-## Utilisation
-
-<CodeExample 
-  language="tsx" 
-  code={`import { Alert } from "@/components/Alert";
-
-// Utilisation simple
-<Alert>Message simple</Alert>
-
-// Avec variant et titre
-<Alert variant="success" title="Opération réussie">
-  Votre action a été effectuée avec succès.
-</Alert>`} 
-/>
-
-Votre design system a maintenant un composant Alert professionnel et bien documenté ! 🎉 
-
-<ComponentPreview
-  title="Titre de l'exemple"
-  reactCode={`import { Button } from "@/components/Button";
-
-<Button variant="primary">Cliquez-moi</Button>`}
-  vueCode={`<template>
-  <Button variant="primary">Cliquez-moi</Button>
-</template>
-
-<script setup>
-import { Button } from '@/components/Button.vue'
-</script>`}
+    <div className="flex gap-4">
+      <Button variant="default">
+        Bouton principal
+      </Button>
+      <Button variant="outline">
+        Bouton secondaire
+      </Button>
+      <Button variant="ghost">
+        Bouton fantôme
+      </Button>
+    </div>
+  )
+}`}
 >
-  <Button variant="primary">Cliquez-moi</Button>
-</ComponentPreview> 
+  <div className="flex gap-4">
+    <Button variant="default">Bouton principal</Button>
+    <Button variant="outline">Bouton secondaire</Button>
+    <Button variant="ghost">Bouton fantôme</Button>
+  </div>
+</CodeExample>
+
+## 🚀 Prêt à commencer ?
+
+<div className="flex flex-col sm:flex-row gap-4">
+  <Link href="/docs/installation">
+    <Button size="lg" className="w-full sm:w-auto">
+      <span className="m-0">Guide d'installation</span>
+    </Button>
+  </Link>
+  <Link href="/docs/components">
+    <Button variant="outline" size="lg" className="w-full sm:w-auto">
+        <span className="m-0">Voir les composants</span>
+    </Button>
+  </Link>
+</div>
+
+## 💬 Besoin d'aide ?
+
+Si vous avez des questions ou des suggestions, n'hésitez pas à :
+
+- Consulter la documentation de chaque composant
+- Examiner les exemples de code fournis
+- Tester les composants en direct dans les aperçus
+
+**Bonne création ! 🎉**

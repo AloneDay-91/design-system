@@ -1,5 +1,5 @@
 import { ButtonWrapper as Button } from '@/components/ButtonWrapper';
-import { AlertWrapper as Alert, AlertDescription } from '@/components/AlertWrapper';
+import { AlertWrapper as Alert, AlertDescriptionWrapper as AlertDescription } from '@/components/AlertWrapper';
 import { ComponentPreview } from '@/components/ComponentPreviewWrapper';
 import { 
   Card, 

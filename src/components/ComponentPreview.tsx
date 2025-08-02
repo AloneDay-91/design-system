@@ -1,121 +1,128 @@
 "use client"
 
 import React from "react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Copy, Check } from "lucide-react"
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
-import { oneDark, oneLight } from "react-syntax-highlighter/dist/cjs/styles/prism"
-import { useTheme } from "next-themes"
+import { CodeBlock } from "./CodeBlock"
+import { cn } from "@/lib/utils"
+import { Eye, Code2 } from "lucide-react"
 
 interface ComponentPreviewProps {
   children: React.ReactNode
   reactCode: string
-  vueCode: string
+  vueCode?: string
   title?: string
+  description?: string
+  className?: string
 }
 
 export function ComponentPreview({ 
-  children, 
-  reactCode, 
-  vueCode, 
-  title 
+  title,
+  description,
+  children,
+  reactCode,
+  vueCode,
+  className
 }: ComponentPreviewProps) {
-  const [copied, setCopied] = React.useState<string | null>(null)
-  const { theme } = useTheme()
-  const syntaxTheme = theme === "dark" ? oneDark : oneLight
-
-  const copyToClipboard = async (text: string, type: string) => {
-    try {
-      await navigator.clipboard.writeText(text)
-      setCopied(type)
-      setTimeout(() => setCopied(null), 2000)
-    } catch (err) {
-      console.error('Erreur lors de la copie:', err)
-    }
-  }
-
-  const CodeBlock = ({ code, language }: { code: string; language: string }) => {
-    const isDark = theme === 'dark'
-    
-    return (
-      <div className="relative">
-        <div className="flex items-center justify-between p-4 border-b bg-muted/50">
-          <span className="text-sm font-medium text-muted-foreground">
-            {language}
-          </span>
-          <button
-            onClick={() => copyToClipboard(code, language)}
-            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            {copied === language ? (
-              <>
-                <Check className="w-4 h-4" />
-                Copié !
-              </>
-            ) : (
-              <>
-                <Copy className="w-4 h-4" />
-                Copier
-              </>
-            )}
-          </button>
-        </div>
-        <div className="overflow-hidden rounded-b-md border">
-          <SyntaxHighlighter
-            language={language.toLowerCase()}
-            style={syntaxTheme}
-            customStyle={{
-              margin: 0,
-              borderRadius: '0 0 6px 6px',
-              fontSize: '14px',
-              lineHeight: '1.5',
-              padding: '16px',
-              backgroundColor: isDark ? '#1e1e1e' : '#f8f9fa',
-            }}
-            showLineNumbers={true}
-            wrapLines={true}
-            lineNumberStyle={{
-              color: isDark ? '#6b7280' : '#9ca3af',
-              fontSize: '12px',
-              paddingRight: '16px',
-              minWidth: '2.5em',
-            }}
-          >
-            {code}
-          </SyntaxHighlighter>
-        </div>
-      </div>
-    )
-  }
+  const [activeTab, setActiveTab] = React.useState<"preview" | "code">("preview")
+  const [selectedLanguage, setSelectedLanguage] = React.useState<"react" | "vue">("react")
 
   return (
-    <div className="my-8 space-y-6">
-      {title && (
-        <h3 className="text-lg font-semibold text-foreground">{title}</h3>
-      )}
-      
-      {/* Preview */}
-      <div className="p-6 border rounded-lg bg-background">
-        <div className="flex items-center justify-center min-h-[100px]">
-          {children}
-        </div>
-      </div>
+    <div className={cn("rounded-lg border bg-card text-card-foreground shadow-sm", className)}>
+      {/* Header avec titre, description et onglets */}
+      {(title || description) && (
+        <div className="border-b bg-muted/50 px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex-1">
+              {title && (
+                <h3 className="text-lg font-semibold text-foreground p-0 m-0">{title}</h3>
+              )}
+              {description && (
+                <p className="text-sm text-muted-foreground mt-1">{description}</p>
+              )}
+            </div>
 
-      {/* Code Tabs */}
-      <Tabs defaultValue="react" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="react">React</TabsTrigger>
-          <TabsTrigger value="vue">Vue</TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="react" className="mt-4">
-          <CodeBlock code={reactCode} language="typescript" />
-        </TabsContent>
-        
-        <TabsContent value="vue" className="mt-4">
-          <CodeBlock code={vueCode} language="vue" />
-        </TabsContent>
-      </Tabs>
+            {/* Onglets sous forme de boutons à droite */}
+            <div className="flex items-center gap-1 bg-muted rounded-lg p-1">
+              <button
+                onClick={() => setActiveTab("preview")}
+                className={cn(
+                  "flex items-center gap-2 px-3 py-1.5 text-sm font-medium transition-colors rounded-md",
+                  activeTab === "preview"
+                    ? "bg-background text-primary shadow-sm"
+                    : "text-muted-foreground hover:text-foreground hover:bg-background/50"
+                )}
+              >
+                <Eye className="h-4 w-4" />
+                Aperçu
+              </button>
+              <button
+                onClick={() => setActiveTab("code")}
+                className={cn(
+                  "flex items-center gap-2 px-3 py-1.5 text-sm font-medium transition-colors rounded-md",
+                  activeTab === "code"
+                    ? "bg-background text-primary shadow-sm"
+                    : "text-muted-foreground hover:text-foreground hover:bg-background/50"
+                )}
+              >
+                <Code2 className="h-4 w-4" />
+                Code
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Contenu */}
+      <div className="relative">
+        {activeTab === "preview" ? (
+          <div className="p-6">
+            <div className="flex items-center justify-center min-h-[200px] rounded-lg border-2 border-dashed border-border bg-background/50 p-6">
+              {children}
+            </div>
+          </div>
+        ) : (
+          <div>
+            {/* Sélecteur de langage si Vue est disponible */}
+            {vueCode && (
+              <div className="border-b bg-muted/30 px-6 py-3">
+                <div className="flex items-center gap-1 bg-muted rounded-lg p-1 w-fit">
+                  <button
+                    onClick={() => setSelectedLanguage("react")}
+                    className={cn(
+                      "px-3 py-1.5 text-sm font-medium transition-colors rounded-md",
+                      selectedLanguage === "react"
+                        ? "bg-background text-primary shadow-sm"
+                        : "text-muted-foreground hover:text-foreground hover:bg-background/50"
+                    )}
+                  >
+                    React
+                  </button>
+                  <button
+                    onClick={() => setSelectedLanguage("vue")}
+                    className={cn(
+                      "px-3 py-1.5 text-sm font-medium transition-colors rounded-md",
+                      selectedLanguage === "vue"
+                        ? "bg-background text-primary shadow-sm"
+                        : "text-muted-foreground hover:text-foreground hover:bg-background/50"
+                    )}
+                  >
+                    Vue
+                  </button>
+                </div>
+              </div>
+            )}
+
+            <div className="overflow-hidden rounded-b-lg">
+              <CodeBlock
+                language={selectedLanguage === "react" ? "tsx" : "vue"}
+                showCopyButton={true}
+                className="border-0 rounded-none"
+              >
+                {selectedLanguage === "react" ? reactCode : (vueCode || reactCode)}
+              </CodeBlock>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   )
-} 
+}

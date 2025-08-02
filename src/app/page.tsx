@@ -3,9 +3,11 @@ import { Spotlight } from "@/components/ui/spotlight";
 
 export default function Home() {
   return (
-    <main className="relative max-w-5xl mx-auto w-full">
-      {/* Spotlight background */}
+    <>
+    <div className="max-w-4xl mx-auto">
       <Spotlight />
+    </div>
+    <main className="relative max-w-5xl mx-auto w-full">
       {/* Hero Section */}
       <div className="relative z-10">
         <Hero195
@@ -18,5 +20,6 @@ export default function Home() {
         />
       </div>
     </main>
+    </>
   );
 }

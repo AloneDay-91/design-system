@@ -1,96 +1,117 @@
 "use client"
 
-import React from "react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
-import { Copy, Check } from "lucide-react";
+import React from "react"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import { Button } from "@/components/ui/button"
+import { Copy, Check, Terminal } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 interface InstallTabsProps {
-  npm: string;
-  yarn?: string;
-  pnpm?: string;
-  bun?: string;
+  npm: string
+  yarn?: string
+  pnpm?: string
+  bun?: string
+  className?: string
 }
 
-export function InstallTabs({ npm, yarn, pnpm, bun }: InstallTabsProps) {
-  const [copied, setCopied] = React.useState<string | null>(null);
+export function InstallTabs({ npm, yarn, pnpm, bun, className }: InstallTabsProps) {
+  const [copied, setCopied] = React.useState<string | null>(null)
 
   const handleCopy = async (cmd: string, type: string) => {
     try {
-      await navigator.clipboard.writeText(cmd);
-      setCopied(type);
-      setTimeout(() => setCopied(null), 2000);
+      await navigator.clipboard.writeText(cmd)
+      setCopied(type)
+      setTimeout(() => setCopied(null), 2000)
     } catch (err) {
-      console.error("Erreur lors de la copie:", err);
+      console.error("Erreur lors de la copie:", err)
     }
-  };
+  }
+
+  const CommandBlock = ({ command, type }: { command: string; type: string }) => (
+    <div className="group relative">
+      <div className="flex items-center gap-3 rounded-lg border bg-muted p-4">
+        <Terminal className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+        <code className="flex-1 text-sm font-mono text-foreground break-all">
+          {command}
+        </code>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => handleCopy(command, type)}
+          className={cn(
+            "h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity",
+            "hover:bg-accent hover:text-accent-foreground"
+          )}
+          aria-label={`Copier la commande ${type}`}
+        >
+          {copied === type ? (
+            <Check className="h-4 w-4 text-green-500" />
+          ) : (
+            <Copy className="h-4 w-4" />
+          )}
+        </Button>
+      </div>
+    </div>
+  )
 
   return (
-    <Tabs defaultValue="npm" className="w-full my-4">
-      <TabsList className="flex mb-2">
-        <TabsTrigger value="npm" className="min-w-0 px-4">npm</TabsTrigger>
-        <TabsTrigger value="yarn" disabled={!yarn} className="min-w-0 px-4">Yarn</TabsTrigger>
-        <TabsTrigger value="pnpm" disabled={!pnpm} className="min-w-0 px-4">pnpm</TabsTrigger>
-        {bun && <TabsTrigger value="bun" className="min-w-0 px-4">Bun</TabsTrigger>}
-      </TabsList>
-      <TabsContent value="npm">
-        <div className="flex items-center gap-2 p-3 bg-muted rounded-md">
-          <code className="flex-1 text-sm font-mono">{npm}</code>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => handleCopy(npm, "npm")}
-            className="h-8 w-8 p-0"
+    <div className={cn("w-full my-4", className)}>
+      <Tabs defaultValue="npm" className="w-full">
+        <TabsList className="h-auto p-1 bg-muted rounded-lg mb-4">
+          <TabsTrigger
+            value="npm"
+            className="data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm px-3 py-1.5 rounded-md"
           >
-            {copied === "npm" ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-          </Button>
-        </div>
-      </TabsContent>
-      {yarn && (
-        <TabsContent value="yarn">
-          <div className="flex items-center gap-2 p-3 bg-muted rounded-md">
-            <code className="flex-1 text-sm font-mono">{yarn}</code>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => handleCopy(yarn, "yarn")}
-              className="h-8 w-8 p-0"
+            npm
+          </TabsTrigger>
+          {yarn && (
+            <TabsTrigger
+              value="yarn"
+              className="data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm px-3 py-1.5 rounded-md"
             >
-              {copied === "yarn" ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-            </Button>
-          </div>
-        </TabsContent>
-      )}
-      {pnpm && (
-        <TabsContent value="pnpm">
-          <div className="flex items-center gap-2 p-3 bg-muted rounded-md">
-            <code className="flex-1 text-sm font-mono">{pnpm}</code>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => handleCopy(pnpm, "pnpm")}
-              className="h-8 w-8 p-0"
+              Yarn
+            </TabsTrigger>
+          )}
+          {pnpm && (
+            <TabsTrigger
+              value="pnpm"
+              className="data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm px-3 py-1.5 rounded-md"
             >
-              {copied === "pnpm" ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-            </Button>
-          </div>
-        </TabsContent>
-      )}
-      {bun && (
-        <TabsContent value="bun">
-          <div className="flex items-center gap-2 p-3 bg-muted rounded-md">
-            <code className="flex-1 text-sm font-mono">{bun}</code>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => handleCopy(bun, "bun")}
-              className="h-8 w-8 p-0"
+              pnpm
+            </TabsTrigger>
+          )}
+          {bun && (
+            <TabsTrigger
+              value="bun"
+              className="data-[state=active]:bg-background data-[state=active]:text-primary data-[state=active]:shadow-sm px-3 py-1.5 rounded-md"
             >
-              {copied === "bun" ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-            </Button>
-          </div>
+              Bun
+            </TabsTrigger>
+          )}
+        </TabsList>
+
+        <TabsContent value="npm" className="mt-0">
+          <CommandBlock command={npm} type="npm" />
         </TabsContent>
-      )}
-    </Tabs>
-  );
-} 
+
+        {yarn && (
+          <TabsContent value="yarn" className="mt-0">
+            <CommandBlock command={yarn} type="yarn" />
+          </TabsContent>
+        )}
+
+        {pnpm && (
+          <TabsContent value="pnpm" className="mt-0">
+            <CommandBlock command={pnpm} type="pnpm" />
+          </TabsContent>
+        )}
+
+        {bun && (
+          <TabsContent value="bun" className="mt-0">
+            <CommandBlock command={bun} type="bun" />
+          </TabsContent>
+        )}
+      </Tabs>
+    </div>
+  )
+}

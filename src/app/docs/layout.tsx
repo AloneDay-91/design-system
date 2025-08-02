@@ -1,7 +1,7 @@
 import { Sidebar } from "@/components/Sidebar";
 import { TableOfContentsWrapper } from "@/components/TableOfContentsWrapper";
 import "../globals.css";
-import { DocsPagination } from "@/components/DocsPagination";
+import { DocsPaginationWrapper } from "@/components/DocsPaginationWrapper";
 
 export default function DocsLayout({
   children,
@@ -20,7 +20,7 @@ export default function DocsLayout({
               <main className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
                 <div className="mx-auto w-full min-w-0 max-w-4xl">
                   {children}
-                  <DocsPagination />
+                  <DocsPaginationWrapper />
                 </div>
                 
                 {/* Table of Contents */}
@@ -36,4 +36,4 @@ export default function DocsLayout({
           </div>
       </main>
   );
-} 
+}
