@@ -1,27 +1,176 @@
+import { InstallTabs } from "@/components/InstallTabs"
+import { CodeBlock } from "@/components/CodeBlock"
+import { CodeExample } from "@/components/CodeExample"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { CheckCircle } from "lucide-react"
+
 # Installation
 
-Pour installer le design system dans votre projet, utilisez l'une des commandes ci-dessous selon votre gestionnaire de paquets préféré :
-
-<InstallTabs
-  npm="npm install mon-design-system"
-  yarn="yarn add mon-design-system"
-  pnpm="pnpm add mon-design-system"
-  bun="bun add mon-design-system"
-/>
+Guide complet pour installer et configurer notre design system dans votre projet Next.js.
 
 ## Prérequis
 
-- Node.js >= 18
-- Un gestionnaire de paquets (npm, yarn, pnpm ou bun)
+Avant de commencer, assurez-vous d'avoir :
 
-## Exemple d'import
+<div className="grid gap-4 my-6">
+  <Card>
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2 text-lg">
+        <CheckCircle className="h-5 w-5 text-green-500" />
+          <span className="m-0">Node.js 18+</span>
+      </CardTitle>
+    </CardHeader>
+    <CardContent>
+      <CardDescription>
+          Version recommandée : Node.js 18 ou supérieure pour une compatibilité optimale.
+      </CardDescription>
+    </CardContent>
+  </Card>
 
-```tsx
-import { Button } from "mon-design-system";
+  <Card>
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2 text-lg">
+        <CheckCircle className="h-5 w-5 text-green-500" />
+          <span className="m-0">Next.js 14+</span>
+      </CardTitle>
+    </CardHeader>
+    <CardContent>
+      <CardDescription>
+          Projet Next.js 14 avec App Router activé pour les dernières fonctionnalités.
+      </CardDescription>
+    </CardContent>
+  </Card>
 
-function App() {
-  return <Button>Mon bouton</Button>;
-}
-```
+  <Card>
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2 text-lg">
+        <CheckCircle className="h-5 w-5 text-green-500" />
+          <span className="m-0">TypeScript</span>
+      </CardTitle>
+    </CardHeader>
+    <CardContent>
+      <CardDescription>
+          Configuration TypeScript recommandée pour une meilleure expérience de développement.
+      </CardDescription>
+    </CardContent>
+  </Card>
+</div>
 
-C'est tout ! Vous pouvez maintenant utiliser les composants du design system dans votre application. 
+## 1. Création d'un nouveau projet
+
+Si vous partez de zéro, créez un nouveau projet Next.js :
+
+<InstallTabs
+  npm="npx create-next-app@latest mon-projet --typescript --tailwind --eslint --app"
+  yarn="yarn create next-app mon-projet --typescript --tailwind --eslint --app"
+  pnpm="pnpm create next-app mon-projet --typescript --tailwind --eslint --app"
+  bun="bun create next-app mon-projet --typescript --tailwind --eslint --app"
+/>
+
+<CodeBlock language="bash">
+    cd mon-projet
+</CodeBlock>
+
+## 2. Installation des dépendances
+
+### Dépendances principales
+
+Installez les packages essentiels pour le design system :
+
+<InstallTabs
+  npm="npm install tailwind-merge clsx class-variance-authority lucide-react"
+  yarn="yarn add tailwind-merge clsx class-variance-authority lucide-react"
+  pnpm="pnpm add tailwind-merge clsx class-variance-authority lucide-react"
+  bun="bun add tailwind-merge clsx class-variance-authority lucide-react"
+/>
+
+### Dépendances Radix UI
+
+Installez les primitives Radix UI nécessaires :
+
+<InstallTabs
+  npm="npm install @radix-ui/react-accordion @radix-ui/react-alert-dialog @radix-ui/react-avatar @radix-ui/react-checkbox @radix-ui/react-dialog @radix-ui/react-slot"
+  yarn="yarn add @radix-ui/react-accordion @radix-ui/react-alert-dialog @radix-ui/react-avatar @radix-ui/react-checkbox @radix-ui/react-dialog @radix-ui/react-slot"
+  pnpm="pnpm add @radix-ui/react-accordion @radix-ui/react-alert-dialog @radix-ui/react-avatar @radix-ui/react-checkbox @radix-ui/react-dialog @radix-ui/react-slot"
+  bun="bun add @radix-ui/react-accordion @radix-ui/react-alert-dialog @radix-ui/react-avatar @radix-ui/react-checkbox @radix-ui/react-dialog @radix-ui/react-slot"
+/>
+
+### Dépendances pour les thèmes
+
+Pour le support du mode sombre :
+
+<InstallTabs
+  npm="npm install next-themes"
+  yarn="yarn add next-themes"
+  pnpm="pnpm add next-themes"
+  bun="bun add next-themes"
+/>
+
+## 3. Configuration Tailwind CSS
+
+Mettez à jour votre fichier `tailwind.config.ts` avec la configuration complète pour shadcn/ui.
+
+## 4. Variables CSS globales
+
+Ajoutez les variables CSS dans votre fichier `globals.css` pour le support des thèmes clair et sombre.
+
+## 5. Utilitaires
+
+Créez le fichier `src/lib/utils.ts` avec la fonction `cn` pour fusionner les classes CSS.
+
+## 6. Configuration des thèmes
+
+### Provider de thème
+
+Créez le composant ThemeProvider pour gérer les thèmes.
+
+### Intégration dans layout
+
+Intégrez le ThemeProvider dans votre layout principal.
+
+## 7. Premier composant
+
+<CodeExample
+  title="Test d'installation"
+  description="Créez un composant Button pour vérifier que tout fonctionne"
+  code={`import { Button } from "@/components/ui/button"
+
+export default function Page() {
+  return (
+    <Button>Mon premier bouton</Button>
+  )
+}`}
+>
+  <div className="p-4">
+    <p className="text-sm text-muted-foreground mb-4">
+      Une fois votre composant Button créé, vous pouvez l'utiliser dans vos pages.
+    </p>
+  </div>
+</CodeExample>
+
+## ✅ Vérification de l'installation
+
+<Alert className="my-6" variant="info">
+    <AlertTitle className="flex items-center gap-2">
+        Installation réussie !
+    </AlertTitle>
+  <AlertDescription>
+    Si vous pouvez voir et utiliser les composants, votre installation est réussie !
+  </AlertDescription>
+</Alert>
+
+## Étapes suivantes
+
+Maintenant que votre design system est installé :
+
+1. **Explorez les composants** - Consultez la [liste des composants](/docs/components) disponibles
+2. **Personnalisez les thèmes** - Ajustez les couleurs et styles selon vos besoins
+3. **Consultez les exemples** - Chaque composant inclut des exemples d'utilisation
+
+<div className="border-t pt-6 mt-8">
+  <h3 className="text-lg font-semibold mb-4">Besoin d'aide ?</h3>
+  <p className="text-muted-foreground">
+    Si vous rencontrez des problèmes pendant l'installation, vérifiez que toutes les dépendances sont correctement installées et que votre configuration Tailwind inclut tous les chemins nécessaires.
+  </p>
+</div>

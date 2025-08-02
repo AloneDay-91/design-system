@@ -1,7 +1,23 @@
 {
   "name": "mon-design-system",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "bin": {
+    "mon-design-system": "./bin/cli.js"
+  },
+  "keywords": [
+    "design-system",
+    "ui",
+    "components",
+    "react",
+    "tailwind"
+  ],
+  "description": "Un design system moderne avec des composants React et Tailwind CSS",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/votre-username/mon-design-system.git"
+  },
+  "homepage": "https://votre-username.github.io/mon-design-system",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -9,6 +25,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@base-ui-components/react": "^1.0.0-beta.1",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
     "@next/mdx": "^15.3.4",

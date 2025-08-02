@@ -1,12 +1,10 @@
 "use client"
 
 import React from "react"
-import { Download, FileText, Copy, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
-import { oneDark, oneLight } from "react-syntax-highlighter/dist/cjs/styles/prism"
-import { useTheme } from "next-themes"
+import { CodeBlock } from "./CodeBlock"
+import {Download, FileText} from "lucide-react";
 
 interface DownloadCodeProps {
   componentName: string
@@ -23,16 +21,6 @@ export function DownloadCode({
   reactFileName,
   vueFileName
 }: DownloadCodeProps) {
-  const [copied, setCopied] = React.useState<string | null>(null)
-  const { theme } = useTheme()
-  const [mounted, setMounted] = React.useState(false)
-
-  React.useEffect(() => setMounted(true), [])
-
-  if (!mounted) return null
-
-  const isDark = theme === 'dark';
-  const syntaxTheme = isDark ? oneDark : oneLight;
 
   const downloadFile = (content: string, filename: string) => {
     const blob = new Blob([content], { type: 'text/plain' })
@@ -46,110 +34,70 @@ export function DownloadCode({
     URL.revokeObjectURL(url)
   }
 
-  const copyToClipboard = async (text: string, type: string) => {
-    try {
-      await navigator.clipboard.writeText(text)
-      setCopied(type)
-      setTimeout(() => setCopied(null), 2000)
-    } catch (err) {
-      console.error('Erreur lors de la copie:', err)
-    }
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const CodeBlock = ({ code, language, filename, isDark, syntaxTheme }: { code: string; language: string; filename: string; isDark: boolean; syntaxTheme: any }) => {
-    return (
-      <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-muted-foreground">
-            {filename}
-          </span>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => copyToClipboard(code, `${language}-copy`)}
-              className="h-8"
-            >
-              {copied === `${language}-copy` ? (
-                <Check className="w-4 h-4 mr-2" />
-              ) : (
-                <Copy className="w-4 h-4 mr-2" />
-              )}
-              Copier
-            </Button>
-            <Button
-              variant="default"
-              size="sm"
-              onClick={() => downloadFile(code, filename)}
-              className="h-8"
-            >
-              <Download className="w-4 h-4 mr-2" />
-              Télécharger
-            </Button>
-          </div>
-        </div>
-        <div className="overflow-hidden rounded-md border">
-          <SyntaxHighlighter
-            language={language.toLowerCase()}
-            style={syntaxTheme}
-            customStyle={{
-              margin: 0,
-              borderRadius: '6px',
-              fontSize: '14px',
-              lineHeight: '1.5',
-              padding: '16px',
-              backgroundColor: isDark ? '#1e1e1e' : '#f8f9fa',
-            }}
-            showLineNumbers={true}
-            wrapLines={true}
-            lineNumberStyle={{
-              color: isDark ? '#6b7280' : '#9ca3af',
-              fontSize: '12px',
-              paddingRight: '16px',
-              minWidth: '2.5em',
-            }}
-          >
-            {code}
-          </SyntaxHighlighter>
-        </div>
-      </div>
-    )
-  }
+  const reactFile = reactFileName || `${componentName}.tsx`
+  const vueFile = vueFileName || `${componentName}.vue`
 
   return (
-    <div className="my-6 space-y-4">
-      <div className="flex flex-row items-center gap-2">
-        <FileText className="w-5 h-5 text-muted-foreground" />
-        <h4 className="text-sm font-medium m-0">Code source</h4>
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <FileText className="h-5 w-5 text-muted-foreground" />
+          <h3 className="text-lg font-semibold">Code source</h3>
+        </div>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => downloadFile(reactCode, reactFile)}
+            className="gap-2"
+          >
+            <Download className="h-4 w-4" />
+            React
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => downloadFile(vueCode, vueFile)}
+            className="gap-2"
+          >
+            <Download className="h-4 w-4" />
+            Vue
+          </Button>
+        </div>
       </div>
-      
+
       <Tabs defaultValue="react" className="w-full">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="react">React</TabsTrigger>
-          <TabsTrigger value="vue">Vue</TabsTrigger>
+          <TabsTrigger value="react" className="gap-2">
+            <FileText className="h-4 w-4" />
+            React
+          </TabsTrigger>
+          <TabsTrigger value="vue" className="gap-2">
+            <FileText className="h-4 w-4" />
+            Vue
+          </TabsTrigger>
         </TabsList>
         
         <TabsContent value="react" className="mt-4">
           <CodeBlock 
-            code={reactCode} 
-            language="typescript" 
-            filename={reactFileName || `${componentName}.tsx`}
-            isDark={isDark}
-            syntaxTheme={syntaxTheme}
-          />
+            language="tsx"
+            title={reactFile}
+            showCopyButton={true}
+          >
+            {reactCode}
+          </CodeBlock>
         </TabsContent>
         
         <TabsContent value="vue" className="mt-4">
-          <CodeBlock 
-            code={vueCode} 
-            language="vue" 
-            filename={vueFileName || `${componentName}.vue`}
-            isDark={isDark}
-            syntaxTheme={syntaxTheme}
-          />
+          <CodeBlock
+            language="vue"
+            title={vueFile}
+            showCopyButton={true}
+          >
+            {vueCode}
+          </CodeBlock>
         </TabsContent>
       </Tabs>
     </div>
   )
-} 
+}

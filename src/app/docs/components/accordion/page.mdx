@@ -1,0 +1,79 @@
+import Link from "next/link";
+import { InstallTabs } from "@/components/InstallTabs";
+import { AccordionBasicExample, AccordionSimpleExample, AccordionExclusiveExample, AccordionNoIconExample } from "@/components/exemples/Accordion/AccordionExamples";
+import { AccordionPropertiesTable } from "@/components/exemples/Accordion/AccordionPropertiesTable";
+import { AccordionDownloadCode } from "@/components/exemples/Accordion/AccordionDownloadCode";
+
+export const metadata = {
+  title: "Accordion",
+  description: "Un ensemble de panneaux pliables avec des en-têtes pour organiser le contenu.",
+};
+
+# Accordion
+
+Un composant d'accordéon permettant d'organiser le contenu en sections pliables et dépliables.
+
+## Aperçu
+
+<AccordionBasicExample />
+
+## Installation
+
+<InstallTabs
+  npm="npm install lucide-react"
+  yarn="yarn add lucide-react"
+  pnpm="pnpm add lucide-react"
+  bun="bun add lucide-react"
+/>
+
+## Anatomie
+
+L'accordion est composé de plusieurs parties qui fonctionnent ensemble :
+
+```tsx
+import {
+  Accordion,      // Conteneur principal
+  AccordionItem,  // Élément individuel
+  AccordionHeader,// En-tête de l'élément
+  AccordionTrigger, // Bouton pour ouvrir/fermer
+  AccordionPanel  // Contenu pliable
+} from "@/design-system";
+
+<Accordion>
+  <AccordionItem>
+    <AccordionHeader>
+      <AccordionTrigger />
+    </AccordionHeader>
+    <AccordionPanel />
+  </AccordionItem>
+</Accordion>
+```
+
+## Exemples d'utilisation
+
+### Exemple simple
+
+<AccordionSimpleExample />
+
+### Une section ouverte à la fois
+
+<AccordionExclusiveExample />
+
+### Sans icône
+
+<AccordionNoIconExample />
+
+## Propriétés
+
+<AccordionPropertiesTable />
+
+## Accessibilité
+
+- ✅ **Navigation clavier** : `Tab`, `Entrée` et `Espace` supportés
+- ✅ **Lecteurs d'écran** : Attributs ARIA corrects
+- ✅ **Focus visible** : Indication claire du focus
+- ✅ **Sémantique HTML** : Structure accessible avec `<h3>` et `<button>`
+
+## Code source
+
+<AccordionDownloadCode />

@@ -1,11 +1,16 @@
 "use client";
 
-import { Alert } from './Alert';
-import type { AlertProps } from './Alert';
-import { Alert as AlertUI, AlertDescription } from '@/components/ui/alert';
+import { Alert, AlertTitle, AlertDescription } from '@/design-system';
+import type { AlertProps, AlertTitleProps, AlertDescriptionProps } from '@/design-system';
 
 export function AlertWrapper(props: AlertProps) {
   return <Alert {...props} />;
 }
 
-export { AlertUI as Alert, AlertDescription }; 
+export function AlertTitleWrapper(props: AlertTitleProps) {
+  return <AlertTitle {...props} />;
+}
+
+export function AlertDescriptionWrapper(props: AlertDescriptionProps) {
+  return <AlertDescription {...props} />;
+}

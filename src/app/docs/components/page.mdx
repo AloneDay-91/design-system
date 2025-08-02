@@ -1,17 +1,134 @@
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import Link from "next/link"
+
+export const components = [
+	{
+		name: "Accordion",
+		href: "/docs/components/accordion",
+		description: "Un composant pliable pour organiser le contenu en sections collapsibles avec animations fluides.",
+		status: "available",
+	},
+	{
+		name: "Alert",
+		href: "/docs/components/alert",
+		description: "Affiche des messages d'information, d'avertissement ou d'erreur avec différentes variantes.",
+		status: "available",
+	},
+	{
+		name: "AlertDialog",
+		href: "/docs/components/alert-dialog",
+		description: "Dialogue modal pour les confirmations importantes et les actions destructives.",
+		status: "available",
+	},
+	{
+		name: "Avatar",
+		href: "/docs/components/avatar",
+		description: "Affiche une image de profil utilisateur avec fallback et différentes tailles.",
+		status: "available",
+	},
+	{
+		name: "Button",
+		href: "/docs/components/button",
+		description: "Bouton interactif avec différentes variantes, tailles et états pour toutes vos actions.",
+		status: "available",
+	},
+	{
+		name: "Card",
+		href: "/docs/components/card",
+		description: "Conteneur flexible et polyvalent pour organiser et présenter du contenu.",
+		status: "available",
+	},
+	{
+		name: "Checkbox",
+		href: "/docs/components/checkbox",
+		description: "Case à cocher pour les sélections multiples avec états indéterminés.",
+		status: "available",
+	},
+	{
+		name: "Dialog",
+		href: "/docs/components/dialog",
+		description: "Fenêtre modale pour afficher du contenu additionnel ou des formulaires.",
+		status: "available",
+	},
+	{
+		name: "Input",
+		href: "/docs/components/input",
+		description: "Champ de saisie de texte avec validation et différents types d'entrée.",
+		status: "coming-soon",
+	},
+]
+
 # Composants
 
-Retrouvez ici la liste de tous les composants disponibles dans le design system, avec un lien vers leur documentation détaillée.
+Découvrez tous les composants disponibles dans notre design system. Chaque composant est conçu pour être accessible, personnalisable et facile à intégrer.
+
+## 📦 Composants disponibles
+
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 my-8">
+	{components.map((component) => {
+		const isAvailable = component.status === "available"
+
+		if (isAvailable) {
+			return (
+				<Link key={component.name} href={component.href} className="group">
+					<Card className="h-full transition-all duration-200 hover:shadow-lg hover:-translate-y-1 hover:border-white">
+						<CardHeader>
+							<div className="flex items-center justify-between">
+								<CardTitle className="text-lg group-hover:text-primary transition-colors">
+									{component.name}
+								</CardTitle>
+								<Badge variant="secondary">Disponible</Badge>
+							</div>
+						</CardHeader>
+						<CardContent>
+							<CardDescription>
+								{component.description}
+							</CardDescription>
+						</CardContent>
+					</Card>
+				</Link>
+			)
+		} else {
+			return (
+				<Card key={component.name} className="h-full transition-all duration-200 opacity-60">
+					<CardHeader>
+						<div className="flex items-center justify-between">
+							<CardTitle className="text-lg">
+								{component.name}
+							</CardTitle>
+							<Badge variant="outline">Bientôt</Badge>
+						</div>
+					</CardHeader>
+					<CardContent>
+						<CardDescription>
+							{component.description}
+						</CardDescription>
+					</CardContent>
+				</Card>
+			)
+		}
+	})}
+</div>
+
+## 🚀 Comment utiliser
+
+Chaque composant dispose de sa propre documentation détaillée comprenant :
+
+- **Exemples interactifs** - Testez le composant en direct
+- **Code source** - Copiez et adaptez le code
+- **Props et API** - Toutes les options de personnalisation
+- **Variantes** - Différents styles et états disponibles
+- **Bonnes pratiques** - Recommandations d'utilisation
+
+## 🎨 Personnalisation
+
+Tous les composants utilisent les variables CSS de votre thème et peuvent être personnalisés via :
+
+- **Variables CSS** - Couleurs, espacements, rayons
+- **Classes Tailwind** - Ajout de styles personnalisés
+- **Props conditionnelles** - Logique d'affichage dynamique
 
 ---
 
-## Liste des composants
-
-- [Alert](/docs/components/alert)
-- [Badge](/docs/components/badge)
-- [Button](/docs/components/button)
-- [Card](/docs/components/card)
-- [Input](/docs/components/input)
-
----
-
-> Cette liste sera enrichie au fur et à mesure de l'ajout de nouveaux composants. Cliquez sur un composant pour accéder à sa documentation, ses exemples et son API.
+> **Nouveaux composants à venir** : Cette collection s'enrichit régulièrement. Les composants marqués "Bientôt" sont en cours de développement.
