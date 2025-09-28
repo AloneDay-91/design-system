@@ -102,7 +102,7 @@ export default function Example() {
   );
 }`}
     >
-      <Field.Root
+      <Field.Root 
         className="w-full max-w-sm"
         validate={(value) => {
           if (!value) return "L'email est requis";

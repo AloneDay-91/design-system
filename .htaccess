@@ -20,6 +20,9 @@ RewriteRule ^docs/components/checkbox/?$ /docs/components/checkbox.html [L]
 RewriteRule ^docs/components/dialog/?$ /docs/components/dialog.html [L]
 RewriteRule ^docs/components/input/?$ /docs/components/input.html [L]
 RewriteRule ^docs/components/card/?$ /docs/components/card.html [L]
+RewriteRule ^docs/components/field/?$ /docs/components/field.html [L]
+RewriteRule ^docs/components/form/?$ /docs/components/form.html [L]
+RewriteRule ^docs/components/toast/?$ /docs/components/toast.html [L]
 
 # Installation documentation page redirect
 RewriteRule ^docs/installation/?$ /docs/installation.html [L]
